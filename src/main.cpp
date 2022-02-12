@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <shaders/shader.h>
 #include <MyClass.h>
+#include "loaders/TextureLoader.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -40,17 +41,10 @@ int main()
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
+    loaders::TextureLoader *tl = new loaders::TextureLoader();
+    tl->loadFromFile("My Documents");
+    
 
-    // refactored into init starts
-
-// refactored into init ends
-
-
-// refactored createdWindow starts part1
-
-
-
-// refactored createdWindow starts part1
 
 // 4 vertices to create a rectangle (made by 2 triangles).
 // we're including some colors (just because) and the tex coords in

@@ -32,6 +32,7 @@
         "src/\\*.cpp",
         "src/includes/glad/glad.c",
         "src/includes/MyClass.cpp",
+        "src/includes/loaders/TextureLoader.cpp",
         "-lglfw3dll",
         "-o",
         "${fileDirname}\\${fileBasenameNoExtension}.exe"
