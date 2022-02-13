@@ -1,11 +1,7 @@
 #ifndef TEXTURELOADER_H
 #define TEXTURELOADER_H
-
-#pragma once
-
 #include <string>
-//using namespace std;
-
+#include <glad/glad.h>
 namespace loaders
 {
     class TextureLoader
@@ -14,7 +10,7 @@ namespace loaders
         TextureLoader();
         ~TextureLoader();
 
-        void loadFromFile(std::string fileName);
+        void loadFromFile(char const *fileName);
 
     private:
 
