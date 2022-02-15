@@ -12,8 +12,11 @@
 
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 void processInput(GLFWwindow *window);
+
+//std::vector<Sprite> sprites;
 
 // settings
 const unsigned int SCR_WIDTH = 800;

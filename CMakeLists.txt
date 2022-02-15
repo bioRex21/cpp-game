@@ -6,7 +6,7 @@ enable_testing()
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 
-add_executable(my_ccp_game src/main.cpp src/includes/MyClass.cpp src/includes/MyClass.h src/includes/loaders/TextureLoader.cpp src/includes/loaders/TextureLoader.h src/includes/vertexUtils/VertexUtils.cpp src/includes/vertexUtils/VertexUtils.h src/includes/display/Sprite.cpp src/includes/display/Sprite.h src/includes/glad/glad.c)
+add_executable(my_ccp_game src/main.cpp src/includes/MyClass.cpp src/includes/MyClass.h src/includes/loaders/TextureLoader.cpp src/includes/loaders/TextureLoader.h src/includes/vertexUtils/VertexUtils.cpp src/includes/vertexUtils/VertexUtils.h src/includes/display/Sprite.cpp src/includes/display/Sprite.h src/includes/display/SpriteGroup.cpp src/includes/display/SpriteGroup.h src/includes/glad/glad.c)
 target_link_libraries(my_ccp_game OpenGL::GL)
 target_link_libraries(my_ccp_game glfw)
 include_directories (src/includes)
