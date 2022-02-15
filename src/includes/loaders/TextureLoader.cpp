@@ -17,7 +17,7 @@ namespace loaders
 //TODO: Handle jpg/png
   void TextureLoader::loadFromFile(char const *fileName)
   {
-    std::cout << "will load" << fileName << std::endl;
+    std::cout << "will load " << fileName << std::endl;
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     unsigned char *data = stbi_load(fileName, &width, &height, &nrChannels, 0);

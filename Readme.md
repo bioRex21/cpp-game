@@ -18,3 +18,6 @@ Shaders and images need to be in build folder
 On windows:
 
 https://medium.com/@vivekjha92/setup-opengl-with-vs-code-82852c653c43
+
+
+Make sure to copy shaders and assets to build/ folder, whenever they change
