@@ -4,6 +4,7 @@
 #include <MyClass.h>
 #include "loaders/TextureLoader.h"
 #include "vertexUtils/VertexUtils.h"
+#include "display/Sprite.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -34,6 +35,8 @@ float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
+
+
 int main()
 {
 
@@ -45,7 +48,9 @@ int main()
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
     loaders::TextureLoader *tl = new loaders::TextureLoader();
-    tl->loadFromFile("My Documents");
+
+Sprite *s = new Sprite();
+s->init();
 
     // 4 vertices to create a rectangle (made by 2 triangles).
     // we're including some colors (just because) and the tex coords in
@@ -66,6 +71,7 @@ int main()
     };
 
     unsigned int texture1, texture2;
+
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
     char const *image1 = "squid2.png";
@@ -73,7 +79,6 @@ int main()
 
     glGenTextures(1, &texture2);
     glBindTexture(GL_TEXTURE_2D, texture2);
-
     char const *image2 = "squid2.png";
     tl->loadFromFile(image2);
 
