@@ -17,21 +17,21 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-//Camera stuff
- glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+// Camera stuff
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float deltaTime = 0.0f;	// Time between current frame and last frame
+float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
 // mouse
 bool firstMouse = true;
-float yaw   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch =  0.0f;
-float lastX =  800.0f / 2.0;
-float lastY =  600.0 / 2.0;
-float fov   =  45.0f;
+float yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float pitch = 0.0f;
+float lastX = 800.0f / 2.0;
+float lastY = 600.0 / 2.0;
+float fov = 45.0f;
 
 int main()
 {
@@ -42,21 +42,22 @@ int main()
     loaders::TextureLoader *tl = new loaders::TextureLoader();
     tl->loadFromFile("My Documents");
 
-// 4 vertices to create a rectangle (made by 2 triangles).
-// we're including some colors (just because) and the tex coords in
-// this single array
-float vertices[] = {
-    // positions          // texture coords
-     0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
-     0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   0.0f, 1.0f    // top left 
-};
-// indicate which vertices to use for first and second triangle
-unsigned int indices[] = {  // note that we start from 0!
-    0, 1, 3,   // first triangle
-    1, 2, 3    // second triangle
-}; 
+    // 4 vertices to create a rectangle (made by 2 triangles).
+    // we're including some colors (just because) and the tex coords in
+    // this single array
+    float vertices[] = {
+        // positions          // texture coords
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+        -0.5f, 0.5f, 0.0f, 0.0f, 1.0f   // top left
+    };
+    // indicate which vertices to use for first and second triangle
+    unsigned int indices[] = {
+        // note that we start from 0!
+        0, 1, 3, // first triangle
+        1, 2, 3  // second triangle
+    };
 
     unsigned int texture1, texture2;
     glGenTextures(1, &texture1);
@@ -70,9 +71,8 @@ unsigned int indices[] = {  // note that we start from 0!
     char const *image2 = "squid2.png";
     tl->loadFromFile(image2);
 
-
     unsigned int VBO;
-    unsigned int VAO; //it will save the GL states config
+    unsigned int VAO; // it will save the GL states config
     unsigned int EBO;
     glGenBuffers(1, &EBO);
     glGenBuffers(1, &VBO);
@@ -80,7 +80,7 @@ unsigned int indices[] = {  // note that we start from 0!
 
     //* bind the Vertex Array Object first, then bind and set vertex buffer(s),
     //* and then configure vertex attributes(s).
-    glBindVertexArray(VAO); //activating to save the following states:
+    glBindVertexArray(VAO); // activating to save the following states:
 
     // position attribute (vertices)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -89,38 +89,33 @@ unsigned int indices[] = {  // note that we start from 0!
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-//param1: vertex attribute number, param2: size of vert attribute (vec3 = 3), type, normalize, 
-//stride how many valies per vertex in our vertices[] array= xyz (3) + colors(3) + tex coords or st (2)
-// offset in the vertex [x,y,z,r,g,b,s,t]
-//                       ^               offset 0 for position (xyz)
-//                               ^       offset 3 for colors (rgb)
-//                                   ^   offset 6 for texture coordinates (st)
-  // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // param1: vertex attribute number, param2: size of vert attribute (vec3 = 3), type, normalize,
+    // stride how many valies per vertex in our vertices[] array= xyz (3) + colors(3) + tex coords or st (2)
+    //  offset in the vertex [x,y,z,r,g,b,s,t]
+    //                        ^               offset 0 for position (xyz)
+    //                                ^       offset 3 for colors (rgb)
+    //                                    ^   offset 6 for texture coordinates (st)
+    //  position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
     // color attribute
-    //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    //glEnableVertexAttribArray(1);
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    // glEnableVertexAttribArray(1);
     // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    
-
-    
 
     // note that this is allowed, the call to glVertexAttribPointer registered VBO
-    //as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+    // as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0); // turn off saving state, we're done. Now can use it at render loop.
 
     // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
-    //but this rarely happens. Modifying other
+    // but this rarely happens. Modifying other
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs)
     // when it's not directly necessary.
     glBindVertexArray(0);
     glm::vec3 cubePositions[] = {
-        glm::vec3( 0.0f,  0.0f,  0.0f)
-    };
-
+        glm::vec3(0.0f, 0.0f, 0.0f)};
 
     Shader ourShader("shader.vert", "shader.frag");
     // be sure to activate the shader
@@ -130,11 +125,11 @@ unsigned int indices[] = {  // note that we start from 0!
     ourShader.setInt("texture2", 1);
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f)); 
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    //glm::mat4 view = glm::mat4(1.0f);
-    // note that we're translating the scene in the reverse direction of where we want to move
-    //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    // glm::mat4 view = glm::mat4(1.0f);
+    //  note that we're translating the scene in the reverse direction of where we want to move
+    // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
     glm::mat4 projection;
     projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -142,8 +137,7 @@ unsigned int indices[] = {  // note that we start from 0!
     glEnable(GL_DEPTH_TEST);
 
     // disable mouse
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
-
+    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // render loop
     // -----------
@@ -162,9 +156,9 @@ unsigned int indices[] = {  // note that we start from 0!
 
         // OUR DRAWING
 
-        //model = glm::rotate(model, (float)glfwGetTime() * glm::radians(0.012f), glm::vec3(0.5f, 1.0f, 0.0f));
+        // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(0.012f), glm::vec3(0.5f, 1.0f, 0.0f));
         int modelLoc = glGetUniformLocation(ourShader.ID, "model");
-        //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
         const float radius = 10.0f;
         float camX = sin(glfwGetTime()) * radius;
@@ -184,23 +178,23 @@ unsigned int indices[] = {  // note that we start from 0!
         glBindTexture(GL_TEXTURE_2D, texture2);
         // using the sate we saved previously
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
-        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+                                // glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-       // for(unsigned int i = 0; i < 10; i++)
-      // {
-            glm::mat4 model = glm::mat4(1.0f);
-            //model = glm::translate(model, cubePositions[0]);
-            //model = glm::rotate(model, (float)glfwGetTime() * glm::radians(15.012f), glm::vec3(1.0f, 0.3f, 0.5f));
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        // for(unsigned int i = 0; i < 10; i++)
+        // {
+        glm::mat4 model = glm::mat4(1.0f);
+        // model = glm::translate(model, cubePositions[0]);
+        // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(15.012f), glm::vec3(1.0f, 0.3f, 0.5f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-       // }
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // }
         // glBindVertexArray(0); // no need to unbind it every time
 
-        //OUR DRAWING ENDS
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
+        // OUR DRAWING ENDS
+        //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        //  -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -208,9 +202,9 @@ unsigned int indices[] = {  // note that we start from 0!
     // optional: de-allocate all resources once they've outlived their purpose:
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    //glDeleteProgram(ourShader);
-    // glfw: terminate, clearing all previously allocated GLFW resources.
-    // ------------------------------------------------------------------
+    // glDeleteProgram(ourShader);
+    //  glfw: terminate, clearing all previously allocated GLFW resources.
+    //  ------------------------------------------------------------------
     glfwTerminate();
     return 0;
 }
@@ -224,7 +218,7 @@ void processInput(GLFWwindow *window)
 
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;  
+    lastFrame = currentFrame;
 
     float cameraSpeed = 2.5f * deltaTime;
 
@@ -238,7 +232,7 @@ void processInput(GLFWwindow *window)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
     if (firstMouse)
     {
@@ -246,9 +240,9 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
         lastY = ypos;
         firstMouse = false;
     }
-  
+
     float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; 
+    float yoffset = lastY - ypos;
     lastX = xpos;
     lastY = ypos;
 
@@ -256,12 +250,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     xoffset *= sensitivity;
     yoffset *= sensitivity;
 
-    yaw   += xoffset;
+    yaw += xoffset;
     pitch += yoffset;
 
-    if(pitch > 89.0f)
+    if (pitch > 89.0f)
         pitch = 89.0f;
-    if(pitch < -89.0f)
+    if (pitch < -89.0f)
         pitch = -89.0f;
 
     glm::vec3 direction;
@@ -271,13 +265,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     cameraFront = glm::normalize(direction);
 }
 
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
     fov -= (float)yoffset;
     if (fov < 1.0f)
         fov = 1.0f;
     if (fov > 45.0f)
-        fov = 45.0f; 
+        fov = 45.0f;
 }
-
