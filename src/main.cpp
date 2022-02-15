@@ -1,5 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <shaders/shader.h>
@@ -43,8 +41,6 @@ int main()
     GLFWwindow *window = mc->myWindow;
     loaders::TextureLoader *tl = new loaders::TextureLoader();
     tl->loadFromFile("My Documents");
-    
-
 
 // 4 vertices to create a rectangle (made by 2 triangles).
 // we're including some colors (just because) and the tex coords in
@@ -70,20 +66,12 @@ unsigned int indices[] = {  // note that we start from 0!
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load and generate the texture
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
+    // load and generate the texture    
+    ///refactored stb
+    //load two squids so it doesnt break with jpeg (to do)
+    char const *image1 = "squid2.png";
+    tl->loadFromFile(image1);
+
 
     glGenTextures(1, &texture2);
     glBindTexture(GL_TEXTURE_2D, texture2);
@@ -94,17 +82,8 @@ unsigned int indices[] = {  // note that we start from 0!
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load and generate the texture
 
-    data = stbi_load("squid2.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
+char const *image2 = "squid2.png";
+    tl->loadFromFile(image2);
 
 
     unsigned int VBO;
