@@ -3,6 +3,7 @@
 #include <shaders/shader.h>
 #include <MyClass.h>
 #include "loaders/TextureLoader.h"
+#include "vertexUtils/VertexUtils.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -35,6 +36,10 @@ float fov = 45.0f;
 
 int main()
 {
+
+    VertexUtils *vu = new VertexUtils();
+    vu->convert(200.0, 100.0);
+
     MyClass *mc = new MyClass();
     mc->init();
     mc->createWindow();
@@ -45,6 +50,7 @@ int main()
     // 4 vertices to create a rectangle (made by 2 triangles).
     // we're including some colors (just because) and the tex coords in
     // this single array
+    //for reference https://learnopengl.com/img/getting-started/ndc.png
     float vertices[] = {
         // positions          // texture coords
         0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
