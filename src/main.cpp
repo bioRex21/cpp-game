@@ -85,7 +85,7 @@ s->init();
         // input
         // -----
         processInput(window);
-        s->render();
+        
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -94,7 +94,7 @@ s->init();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-
+s->render();
        //todo: move to sprite->render()
        // done
        //TODO Refactor Shader to a class
