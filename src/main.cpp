@@ -22,23 +22,27 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-// Camera stuff
+/*
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
+*/
+
 float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
+// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 
-// mouse
+/*
+f
+
 bool firstMouse = true;
-float yaw = -90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch = 0.0f;
+float yaw = -90.0f; float pitch = 0.0f;
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
-
+*/
 
 int main()
 {
@@ -55,98 +59,19 @@ int main()
 Sprite *s = new Sprite();
 s->init();
 
-    // 4 vertices to create a rectangle (made by 2 triangles).
-    // we're including some colors (just because) and the tex coords in
-    // this single array
-    //for reference https://learnopengl.com/img/getting-started/ndc.png
-    float vertices[] = {
-        // positions          // texture coords
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f, 0.0f, 0.0f, 1.0f   // top left
-    };
-    // indicate which vertices to use for first and second triangle
-    unsigned int indices[] = {
-        // note that we start from 0!
-        0, 1, 3, // first triangle
-        1, 2, 3  // second triangle
-    };
 
-    unsigned int texture1, texture2;
+    //
+    // TODO: move this to Sprite
+    //
 
-    glGenTextures(1, &texture1);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-    char const *image1 = "squid2.png";
-    tl->loadFromFile(image1);
 
-    glGenTextures(1, &texture2);
-    glBindTexture(GL_TEXTURE_2D, texture2);
-    char const *image2 = "squid2.png";
-    tl->loadFromFile(image2);
 
-    unsigned int VBO;
-    unsigned int VAO; // it will save the GL states config
-    unsigned int EBO;
-    glGenBuffers(1, &EBO);
-    glGenBuffers(1, &VBO);
-    glGenVertexArrays(1, &VAO);
-
-    //* bind the Vertex Array Object first, then bind and set vertex buffer(s),
-    //* and then configure vertex attributes(s).
-    glBindVertexArray(VAO); // activating to save the following states:
-
-    // position attribute (vertices)
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // param1: vertex attribute number, param2: size of vert attribute (vec3 = 3), type, normalize,
-    // stride how many valies per vertex in our vertices[] array= xyz (3) + colors(3) + tex coords or st (2)
-    //  offset in the vertex [x,y,z,r,g,b,s,t]
-    //                        ^               offset 0 for position (xyz)
-    //                                ^       offset 3 for colors (rgb)
-    //                                    ^   offset 6 for texture coordinates (st)
-    //  position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    // glEnableVertexAttribArray(1);
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO
-    // as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // turn off saving state, we're done. Now can use it at render loop.
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
-    // but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs)
-    // when it's not directly necessary.
-    glBindVertexArray(0);
     glm::vec3 cubePositions[] = {
         glm::vec3(0.0f, 0.0f, 0.0f)};
 
-    Shader ourShader("shader.vert", "shader.frag");
-    // be sure to activate the shader
-    ourShader.use();
-    glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
-    // or set it via the texture class
-    ourShader.setInt("texture2", 1);
+    
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-    // glm::mat4 view = glm::mat4(1.0f);
-    //  note that we're translating the scene in the reverse direction of where we want to move
-    // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
+    
 
     glEnable(GL_DEPTH_TEST);
 
@@ -160,7 +85,7 @@ s->init();
         // input
         // -----
         processInput(window);
-
+        s->render();
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -170,41 +95,9 @@ s->init();
 
         // OUR DRAWING
 
-        // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(0.012f), glm::vec3(0.5f, 1.0f, 0.0f));
-        int modelLoc = glGetUniformLocation(ourShader.ID, "model");
-        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-        const float radius = 10.0f;
-        float camX = sin(glfwGetTime()) * radius;
-        float camZ = cos(glfwGetTime()) * radius;
-        glm::mat4 view;
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
-        int viewLoc = glGetUniformLocation(ourShader.ID, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-        int projectionLoc = glGetUniformLocation(ourShader.ID, "projection");
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-        glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
-        glBindTexture(GL_TEXTURE_2D, texture1);
-        glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
-        glBindTexture(GL_TEXTURE_2D, texture2);
-        // using the sate we saved previously
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-                                // glDrawArrays(GL_TRIANGLES, 0, 3);
-        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        // for(unsigned int i = 0; i < 10; i++)
-        // {
-        glm::mat4 model = glm::mat4(1.0f);
-        // model = glm::translate(model, cubePositions[0]);
-        // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(15.012f), glm::vec3(1.0f, 0.3f, 0.5f));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // }
-        // glBindVertexArray(0); // no need to unbind it every time
+       //todo: move to sprite->render()
+       // done
+       //TODO Refactor Shader to a class
 
         // OUR DRAWING ENDS
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -214,8 +107,8 @@ s->init();
     }
     // ------------------------------------------------------------------------
     // optional: de-allocate all resources once they've outlived their purpose:
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    s->destroy();
+    // Todo:sprite.destroy()
     // glDeleteProgram(ourShader);
     //  glfw: terminate, clearing all previously allocated GLFW resources.
     //  ------------------------------------------------------------------
@@ -227,6 +120,7 @@ s->init();
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
+    /*
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
@@ -244,10 +138,14 @@ void processInput(GLFWwindow *window)
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+
+    */
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
+    /*
     if (firstMouse)
     {
         lastX = xpos;
@@ -277,13 +175,17 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     direction.y = sin(glm::radians(pitch));
     direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(direction);
+    */
 }
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
+    /*
     fov -= (float)yoffset;
     if (fov < 1.0f)
         fov = 1.0f;
     if (fov > 45.0f)
         fov = 45.0f;
+
+        */
 }

@@ -1,4 +1,9 @@
 {
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#3c0779",
+    "statusBar.background": "#3c0779",
+    "titleBar.inactiveBackground": "#1c0338"
+  },
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "files.associations": {
     "*.as": "actionscript",
