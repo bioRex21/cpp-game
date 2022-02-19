@@ -4,6 +4,7 @@
     "statusBar.background": "#3c0779",
     "titleBar.inactiveBackground": "#1c0338"
   },
+  "C_Cpp.clang_format_style": "{BasedOnStyle: Google, BreakBeforeBraces: Attach}",
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "files.associations": {
     "*.as": "actionscript",
@@ -63,6 +64,18 @@
     "xstddef": "cpp",
     "xstring": "cpp",
     "xtr1common": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "array": "cpp",
+    "bit": "cpp",
+    "*.tcc": "cpp",
+    "clocale": "cpp",
+    "cwctype": "cpp",
+    "deque": "cpp",
+    "memory_resource": "cpp",
+    "numeric": "cpp",
+    "random": "cpp",
+    "string_view": "cpp",
+    "numbers": "cpp",
+    "cinttypes": "cpp"
   }
 }

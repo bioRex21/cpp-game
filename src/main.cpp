@@ -1,18 +1,18 @@
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <shaders/shader.h>
 #include <MyClass.h>
-#include "loaders/TextureLoader.h"
-#include "vertexUtils/VertexUtils.h"
-#include "display/Sprite.h"
+#include <glad/glad.h>
+#include <shaders/shader.h>
 
+#include <cmath>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#include <cmath>
 #include <iostream>
 #include <vector>
+
+#include "display/Sprite.h"
+#include "loaders/TextureLoader.h"
+#include "vertexUtils/VertexUtils.h"
 
 void processInput(GLFWwindow *window);
 
@@ -29,9 +29,10 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 */
 
-float deltaTime = 0.0f; // Time between current frame and last frame
-float lastFrame = 0.0f; // Time of last frame
-// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float deltaTime = 0.0f;  // Time between current frame and last frame
+float lastFrame = 0.0f;  // Time of last frame
+// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction
+// vector pointing to the right so we initially rotate a bit to the left.
 
 /*
 f
@@ -44,143 +45,139 @@ float fov = 45.0f;
 
 */
 
-int main()
-{
+int main() {
+  VertexUtils *vu = new VertexUtils();
+  vu->convert(200.0, 100.0);
 
-    VertexUtils *vu = new VertexUtils();
-    vu->convert(200.0, 100.0);
+  MyClass *mc = new MyClass();
+  mc->init();
+  mc->createWindow();
+  GLFWwindow *window = mc->myWindow;
+  loaders::TextureLoader *tl = new loaders::TextureLoader();
 
-    MyClass *mc = new MyClass();
-    mc->init();
-    mc->createWindow();
-    GLFWwindow *window = mc->myWindow;
-    loaders::TextureLoader *tl = new loaders::TextureLoader();
+  Sprite *s = new Sprite();
 
-    Sprite *s = new Sprite();
+  char const *image1 = "squid2.png";
+  s->init(image1);
 
-    char const *image1 = "squid2.png";
-    s->init(image1);
+  //
+  // TODO: move this to Sprite
+  //
 
-    //
-    // TODO: move this to Sprite
-    //
+  glm::vec3 cubePositions[] = {glm::vec3(0.0f, 0.0f, 0.0f)};
 
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f, 0.0f, 0.0f)};
+  glEnable(GL_DEPTH_TEST);
 
-    glEnable(GL_DEPTH_TEST);
+  // disable mouse
+  // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    // disable mouse
-    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  // render loop
+  // -----------
+  while (!glfwWindowShouldClose(window)) {
+    // input
+    // -----
+    processInput(window);
 
-    // render loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
-    {
-        // input
-        // -----
-        processInput(window);
+    // render
+    // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // render
-        // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    // OUR DRAWING
+    s->render();
+    // todo: move to sprite->render()
+    //  done
+    // TODO Refactor Shader to a class
 
-        // OUR DRAWING
-        s->render();
-        // todo: move to sprite->render()
-        //  done
-        // TODO Refactor Shader to a class
-
-        // OUR DRAWING ENDS
-        //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        //  -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    // ------------------------------------------------------------------------
-    // optional: de-allocate all resources once they've outlived their purpose:
-    s->destroy();
-    // Todo:sprite.destroy()
-    // glDeleteProgram(ourShader);
-    //  glfw: terminate, clearing all previously allocated GLFW resources.
-    //  ------------------------------------------------------------------
-    glfwTerminate();
-    return 0;
+    // OUR DRAWING ENDS
+    //  glfw: swap buffers and poll IO events (keys pressed/released, mouse
+    //  moved etc.)
+    //  -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+  // ------------------------------------------------------------------------
+  // optional: de-allocate all resources once they've outlived their purpose:
+  s->destroy();
+  // Todo:sprite.destroy()
+  // glDeleteProgram(ourShader);
+  //  glfw: terminate, clearing all previously allocated GLFW resources.
+  //  ------------------------------------------------------------------
+  glfwTerminate();
+  return 0;
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
+// process all input: query GLFW whether relevant keys are pressed/released this
+// frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow *window)
-{
-    /*
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+void processInput(GLFWwindow *window) {
+  /*
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+      glfwSetWindowShouldClose(window, true);
 
-    float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+  float currentFrame = glfwGetTime();
+  deltaTime = currentFrame - lastFrame;
+  lastFrame = currentFrame;
 
-    float cameraSpeed = 2.5f * deltaTime;
+  float cameraSpeed = 2.5f * deltaTime;
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        w -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+      cameraPos += cameraSpeed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+      cameraPos -= cameraSpeed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+      w -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+      cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) *
+  cameraSpeed;
 
 
-    */
+  */
 }
 
-void mouse_callback(GLFWwindow *window, double xpos, double ypos)
-{
-    /*
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
+void mouse_callback(GLFWwindow *window, double xpos, double ypos) {
+  /*
+  if (firstMouse)
+  {
+      lastX = xpos;
+      lastY = ypos;
+      firstMouse = false;
+  }
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
+  float xoffset = xpos - lastX;
+  float yoffset = lastY - ypos;
+  lastX = xpos;
+  lastY = ypos;
 
-    float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
+  float sensitivity = 0.1f;
+  xoffset *= sensitivity;
+  yoffset *= sensitivity;
 
-    yaw += xoffset;
-    pitch += yoffset;
+  yaw += xoffset;
+  pitch += yoffset;
 
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
+  if (pitch > 89.0f)
+      pitch = 89.0f;
+  if (pitch < -89.0f)
+      pitch = -89.0f;
 
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(direction);
-    */
+  glm::vec3 direction;
+  direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+  direction.y = sin(glm::radians(pitch));
+  direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+  cameraFront = glm::normalize(direction);
+  */
 }
 
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
-{
-    /*
-    fov -= (float)yoffset;
-    if (fov < 1.0f)
-        fov = 1.0f;
-    if (fov > 45.0f)
-        fov = 45.0f;
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
+  /*
+  fov -= (float)yoffset;
+  if (fov < 1.0f)
+      fov = 1.0f;
+  if (fov > 45.0f)
+      fov = 45.0f;
 
-        */
+      */
 }

@@ -1,19 +1,17 @@
 #ifndef TEXTURELOADER_H
 #define TEXTURELOADER_H
-#include <string>
 #include <glad/glad.h>
-namespace loaders
-{
-    class TextureLoader
-    {
-    public:
-        TextureLoader();
-        ~TextureLoader();
 
-        void loadFromFile(char const *fileName);
+#include <string>
+namespace loaders {
+class TextureLoader {
+ public:
+  TextureLoader();
+  ~TextureLoader();
 
-    private:
+  void loadFromFile(char const *fileName);
 
-    };
-}
+ private:
+};
+}  // namespace loaders
 #endif

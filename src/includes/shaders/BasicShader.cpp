@@ -1,12 +1,13 @@
 #include "BasicShader.h"
-#include <sstream>
-#include <iostream>
-#include <fstream>
+
 #include <glad/glad.h>
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <string>
 
-BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath)
-{
+BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath) {
   // 1. retrieve the vertex/fragment source code from filePath
   std::string vertexCode;
   std::string fragmentCode;
@@ -15,8 +16,7 @@ BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath)
   // ensure ifstream objects can throw exceptions:
   vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
   fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-  try
-  {
+  try {
     // open files
     vShaderFile.open(vertexPath);
     fShaderFile.open(fragmentPath);
@@ -30,9 +30,7 @@ BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath)
     // convert stream into string
     vertexCode = vShaderStream.str();
     fragmentCode = fShaderStream.str();
-  }
-  catch (std::ifstream::failure &e)
-  {
+  } catch (std::ifstream::failure &e) {
     std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
   }
   const char *vShaderCode = vertexCode.c_str();
@@ -55,62 +53,57 @@ BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath)
   glAttachShader(ID, fragment);
   glLinkProgram(ID);
   checkCompileErrors(ID, "PROGRAM");
-  // delete the shaders as they're linked into our program now and no longer necessary
+  // delete the shaders as they're linked into our program now and no longer
+  // necessary
   glDeleteShader(vertex);
   glDeleteShader(fragment);
-  std::cout<< "created with ID  "<< ID <<std::endl;
+  std::cout << "created with ID  " << ID << std::endl;
 }
 
 // activate the shader
 // ------------------------------------------------------------------------
-void BasicShader::use()
-{
-  std::cout<<"using ID"<< ID << std::endl;
+void BasicShader::use() {
+  std::cout << "using ID" << ID << std::endl;
   glUseProgram(ID);
 }
 // utility uniform functions
 // ------------------------------------------------------------------------
-void BasicShader::setBool(const std::string &name, bool value) const
-{
+void BasicShader::setBool(const std::string &name, bool value) const {
   glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 // ------------------------------------------------------------------------
-void BasicShader::setInt(const std::string &name, int value) const
-{
+void BasicShader::setInt(const std::string &name, int value) const {
   glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 // ------------------------------------------------------------------------
-void BasicShader::setFloat(const std::string &name, float value) const
-{
+void BasicShader::setFloat(const std::string &name, float value) const {
   glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void BasicShader::checkCompileErrors(unsigned int shader, std::string type)
-{
+void BasicShader::checkCompileErrors(unsigned int shader, std::string type) {
   int success;
   char infoLog[1024];
-  if (type != "PROGRAM")
-  {
+  if (type != "PROGRAM") {
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
+    if (!success) {
       glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-      std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
-                << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+      std::cout
+          << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
+          << infoLog
+          << "\n -- --------------------------------------------------- -- "
+          << std::endl;
     }
-  }
-  else
-  {
+  } else {
     glGetProgramiv(shader, GL_LINK_STATUS, &success);
-    if (!success)
-    {
+    if (!success) {
       glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-      std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
-                << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+      std::cout
+          << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
+          << infoLog
+          << "\n -- --------------------------------------------------- -- "
+          << std::endl;
     }
   }
 }
 
-BasicShader::~BasicShader()
-{
-}
+BasicShader::~BasicShader() {}
