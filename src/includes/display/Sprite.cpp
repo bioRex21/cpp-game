@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
+#include "vertexUtils/VertexUtils.h"
 #include <cmath>
 
 
@@ -22,7 +23,6 @@ float fov = 45.0f;
 int ourShaderID;
 
 
-
 Sprite::Sprite()
 {
 }
@@ -35,6 +35,15 @@ void Sprite::init()
 {
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
+
+  float verts2[20];
+  //verts2 = vertexUtils->centeredImageVertices; 
+  std::copy(VertexUtils::centeredImageVertices,VertexUtils::centeredImageVertices + 20, verts2);
+
+
+  //works with auto vertices2 = VertexUtils::centeredImageVertices;
+  //float vertices2 = VertexUtils::centeredImageVertices;
+
   float vertices[] = {
       // positions          // texture coords
       0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
@@ -64,7 +73,7 @@ void Sprite::init()
 
   // position attribute (vertices)
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(verts2), verts2, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
