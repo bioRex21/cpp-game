@@ -11,7 +11,7 @@ public:
 BasicShader *ourShader;
     Sprite();
     ~Sprite();
-    void init();
+    void init(char const *image1);
     void render();
     void destroy();
 

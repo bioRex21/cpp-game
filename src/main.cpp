@@ -16,7 +16,7 @@
 
 void processInput(GLFWwindow *window);
 
-//std::vector<Sprite> sprites;
+// std::vector<Sprite> sprites;
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -56,22 +56,17 @@ int main()
     GLFWwindow *window = mc->myWindow;
     loaders::TextureLoader *tl = new loaders::TextureLoader();
 
-Sprite *s = new Sprite();
-s->init();
+    Sprite *s = new Sprite();
 
+    char const *image1 = "squid2.png";
+    s->init(image1);
 
     //
     // TODO: move this to Sprite
     //
 
-
-
     glm::vec3 cubePositions[] = {
         glm::vec3(0.0f, 0.0f, 0.0f)};
-
-    
-
-    
 
     glEnable(GL_DEPTH_TEST);
 
@@ -85,7 +80,7 @@ s->init();
         // input
         // -----
         processInput(window);
-        
+
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -94,10 +89,10 @@ s->init();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-s->render();
-       //todo: move to sprite->render()
-       // done
-       //TODO Refactor Shader to a class
+        s->render();
+        // todo: move to sprite->render()
+        //  done
+        // TODO Refactor Shader to a class
 
         // OUR DRAWING ENDS
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

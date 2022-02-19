@@ -9,7 +9,6 @@
 #include "vertexUtils/VertexUtils.h"
 #include <cmath>
 
-
 unsigned int texture1;
 unsigned int VBO;
 unsigned int VAO; // it will save the GL states config
@@ -22,7 +21,6 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 float fov = 45.0f;
 int ourShaderID;
 
-
 Sprite::Sprite()
 {
 }
@@ -31,36 +29,19 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::init()
+void Sprite::init(char const *image1)
 {
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
 
   float verts2[20];
-  //verts2 = vertexUtils->centeredImageVertices; 
-  std::copy(VertexUtils::centeredImageVertices,VertexUtils::centeredImageVertices + 20, verts2);
-
-
-  //works with auto vertices2 = VertexUtils::centeredImageVertices;
-  //float vertices2 = VertexUtils::centeredImageVertices;
-
-  float vertices[] = {
-      // positions          // texture coords
-      0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
-      0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  // bottom right
-      -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-      -0.5f, 0.5f, 0.0f, 0.0f, 1.0f   // top left
-  };
-  // indicate which vertices to use for first and second triangle
-  unsigned int indices[] = {
-      // note that we start from 0!
-      0, 1, 3, // first triangle
-      1, 2, 3  // second triangle
-  };
+  unsigned int indices2[6];
+  std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
+  std::copy(VertexUtils::indices, VertexUtils::indices + 6, indices2);
 
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
-  char const *image1 = "squid2.png";
+  // char const *image1 = "squid2.png";
   tl->loadFromFile(image1);
 
   glGenBuffers(1, &EBO);
@@ -76,7 +57,7 @@ void Sprite::init()
   glBufferData(GL_ARRAY_BUFFER, sizeof(verts2), verts2, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices2), indices2, GL_STATIC_DRAW);
 
   // param1: vertex attribute number, param2: size of vert attribute (vec3 = 3), type, normalize,
   // stride how many valies per vertex in our vertices[] array= xyz (3) + colors(3) + tex coords or st (2)
@@ -104,7 +85,7 @@ void Sprite::init()
   // when it's not directly necessary.
   glBindVertexArray(0);
 
-    this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
+  this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
   // be sure to activate the shader
   ourShader->use();
   glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
@@ -115,14 +96,14 @@ void Sprite::init()
 void Sprite::render()
 {
   glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+  model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    // glm::mat4 view = glm::mat4(1.0f);
-    //  note that we're translating the scene in the reverse direction of where we want to move
-    // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+  // glm::mat4 view = glm::mat4(1.0f);
+  //  note that we're translating the scene in the reverse direction of where we want to move
+  // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
+  glm::mat4 projection;
+  projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
 
   // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(0.012f), glm::vec3(0.5f, 1.0f, 0.0f));
   int modelLoc = glGetUniformLocation(ourShader->ID, "model");
@@ -134,7 +115,7 @@ void Sprite::render()
   glm::mat4 view;
   view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-//std::cout<< "ID is "<< ourShader->ID <<std::endl;
+  // std::cout<< "ID is "<< ourShader->ID <<std::endl;
   int viewLoc = glGetUniformLocation(ourShader->ID, "view");
   glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
