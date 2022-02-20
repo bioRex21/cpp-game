@@ -86,17 +86,22 @@ void Sprite::init(char const *image1)
   glBindVertexArray(0);
 
   this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
+  
+}
+
+void Sprite::render(int t)
+{
   // be sure to activate the shader
   ourShader->use();
   glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
   // or set it via the texture class
   // ourShader.setInt("texture1", 0);
-}
 
-void Sprite::render()
-{
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+  if (t == 1) {
+  model = glm::translate(model, glm::vec3( 2.0f,  5.0f, -15.0f));
+  }
 
   // glm::mat4 view = glm::mat4(1.0f);
   //  note that we're translating the scene in the reverse direction of where we want to move
@@ -135,7 +140,7 @@ void Sprite::render()
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   // }
-  // glBindVertexArray(0); // no need to unbind it every time
+   glBindVertexArray(0); // no need to unbind it every time
 }
 
 void Sprite::destroy()

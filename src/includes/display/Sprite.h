@@ -12,7 +12,7 @@ BasicShader *ourShader;
     Sprite();
     ~Sprite();
     void init(char const *image1);
-    void render();
+    void render(int t);
     void destroy();
 
 

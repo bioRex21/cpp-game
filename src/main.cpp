@@ -57,9 +57,13 @@ int main()
     loaders::TextureLoader *tl = new loaders::TextureLoader();
 
     Sprite *s = new Sprite();
-
     char const *image1 = "squid2.png";
     s->init(image1);
+
+    Sprite *s2 = new Sprite();
+    //char const *image2 = "640x360.png";
+    char const *image2 = "squid1.png";
+    s2->init(image2);
 
     //
     // TODO: move this to Sprite
@@ -77,6 +81,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        std::cout << "frame"<<std::endl << std::endl;
         // input
         // -----
         processInput(window);
@@ -89,7 +94,9 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-        s->render();
+        s2->render(0);
+        s->render(1);
+        
         // todo: move to sprite->render()
         //  done
         // TODO Refactor Shader to a class
@@ -102,7 +109,7 @@ int main()
     }
     // ------------------------------------------------------------------------
     // optional: de-allocate all resources once they've outlived their purpose:
-    s->destroy();
+    //s->destroy();
     // Todo:sprite.destroy()
     // glDeleteProgram(ourShader);
     //  glfw: terminate, clearing all previously allocated GLFW resources.
