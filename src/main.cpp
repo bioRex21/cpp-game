@@ -1,6 +1,5 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <shaders/shader.h>
 #include <MyClass.h>
 #include "loaders/TextureLoader.h"
 #include "vertexUtils/VertexUtils.h"
@@ -54,23 +53,19 @@ int main()
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
-    loaders::TextureLoader *tl = new loaders::TextureLoader();
+    
 
-    Sprite *s = new Sprite();
-    char const *image1 = "squid2.png";
-    s->init(image1);
 
-    Sprite *s2 = new Sprite();
-    //char const *image2 = "640x360.png";
-    char const *image2 = "squid1.png";
-    s2->init(image2);
+Sprite *orangeSquid = new Sprite();
+    char const *image2 = "squid1.png"; //orange
+    orangeSquid->init(image2, 2);
 
-    //
-    // TODO: move this to Sprite
-    //
+    Sprite *blueSquid = new Sprite();
+    char const *image1 = "squid2.png"; // blue
+    blueSquid->init(image1,1);
 
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f, 0.0f, 0.0f)};
+    
+
 
     glEnable(GL_DEPTH_TEST);
 
@@ -94,8 +89,14 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-        s2->render(0);
-        s->render(1);
+        std::cout<< " "<< std::endl;
+        std::cout<< " "<< std::endl;
+        std::cout<< " "<< std::endl;
+        std::cout<< "sprite 2 render "<< std::endl;
+        orangeSquid->render(0);
+        std::cout<< " "<< std::endl;
+        //std::cout<< "sprite 1 render "<< std::endl;
+        //blueSquid->render(1);
         
         // todo: move to sprite->render()
         //  done
