@@ -118,7 +118,6 @@ void Sprite::render(int t)
   glm::mat4 view;
   view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-  // std::cout<< "ID is "<< ourShader->ID <<std::endl;
   int viewLoc = glGetUniformLocation(ourShader->ID, "view");
   glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 

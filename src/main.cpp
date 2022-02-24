@@ -53,19 +53,14 @@ int main()
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
-    
 
-
-Sprite *orangeSquid = new Sprite();
-    char const *orangeFile = "orange.png"; //orange
+    Sprite *orangeSquid = new Sprite();
+    char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
 
     Sprite *blueSquid = new Sprite();
-    char const *blueFile = "blue.png"; // blue
-    blueSquid->init(blueFile,1);
-
-    
-
+    char const *blueFile = "blue.png";
+    blueSquid->init(blueFile, 1);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -89,21 +84,12 @@ Sprite *orangeSquid = new Sprite();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-       /* std::cout<< " "<< std::endl;
-        std::cout<< " "<< std::endl;
-        std::cout<< " "<< std::endl;
-        std::cout<< "sprite 2 render "<< std::endl;
-        */
+
         orangeSquid->render(0);
-        //std::cout<< " "<< std::endl;
-        //std::cout<< "sprite 1 render "<< std::endl;
         blueSquid->render(1);
-        
-        // todo: move to sprite->render()
-        //  done
-        // TODO Refactor Shader to a class
 
         // OUR DRAWING ENDS
+
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         //  -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
@@ -111,7 +97,7 @@ Sprite *orangeSquid = new Sprite();
     }
     // ------------------------------------------------------------------------
     // optional: de-allocate all resources once they've outlived their purpose:
-    //s->destroy();
+    // s->destroy();
     // Todo:sprite.destroy()
     // glDeleteProgram(ourShader);
     //  glfw: terminate, clearing all previously allocated GLFW resources.
