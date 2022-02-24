@@ -9,8 +9,6 @@
 #include "vertexUtils/VertexUtils.h"
 #include <cmath>
 
-
-
 // Camera stuff
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -29,11 +27,9 @@ Sprite::~Sprite()
 
 void Sprite::init(char const *image1, int version = 0)
 {
-  if(version == 2) {
-  this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader_v2.frag");
-  } else {
-    this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
-  }
+
+  this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
+
   ourShader->use();
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
@@ -46,8 +42,6 @@ void Sprite::init(char const *image1, int version = 0)
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
   tl->loadFromFile(image1);
-
-std::cout<< "sprite created tex num" << texture1<< std::endl;
 
   glGenBuffers(1, &EBO);
   glGenBuffers(1, &VBO);
@@ -93,29 +87,23 @@ std::cout<< "sprite created tex num" << texture1<< std::endl;
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-//We want to display orange squid (sprite1 tex num 1)
-
 void Sprite::render(int t)
 {
-  
   // be sure to activate the shader
   ourShader->use();
-  //glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
-  // or set it via the texture class
-  // ourShader->setInt("texture1", 0);
+  glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
+  //  or set it via the texture class
+  //  ourShader->setInt("texture1", 0);
 
-   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
-  ////std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1<< std::endl;
+  glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, texture1);
-
-std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1<< std::endl;
 
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-  if (t == 1) {
-  model = glm::translate(model, glm::vec3( 2.0f,  5.0f, -15.0f));
+  if (t == 1)
+  {
+    model = glm::translate(model, glm::vec3(2.0f, 5.0f, -15.0f));
   }
-
 
   glm::mat4 projection;
   projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -137,21 +125,14 @@ std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1
   int projectionLoc = glGetUniformLocation(ourShader->ID, "projection");
   glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-  
-
- 
   // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(15.012f), glm::vec3(1.0f, 0.3f, 0.5f));
   glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-ourShader->use();
-   // using the sate we saved previously
+
+  // using the sate we saved previously
   glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
                           // glDrawArrays(GL_TRIANGLES, 0, 3);
-  // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-  // }
-  
 }
 
 void Sprite::destroy()
