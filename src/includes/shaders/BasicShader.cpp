@@ -65,7 +65,7 @@ BasicShader::BasicShader(const char *vertexPath, const char *fragmentPath)
 // ------------------------------------------------------------------------
 void BasicShader::use()
 {
-  std::cout<<"using ID"<< ID << std::endl;
+  ////std::cout<<"using ID"<< ID << std::endl;
   glUseProgram(ID);
 }
 // utility uniform functions
@@ -77,7 +77,7 @@ void BasicShader::setBool(const std::string &name, bool value) const
 // ------------------------------------------------------------------------
 void BasicShader::setInt(const std::string &name, int value) const
 {
-  std::cout<< "set uniform for shader"  << ID << std::endl;
+  //std::cout<< "set uniform for shader"  << ID << std::endl;
   glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 // ------------------------------------------------------------------------

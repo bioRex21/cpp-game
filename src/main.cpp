@@ -57,12 +57,12 @@ int main()
 
 
 Sprite *orangeSquid = new Sprite();
-    char const *image2 = "squid1.png"; //orange
-    orangeSquid->init(image2, 2);
+    char const *orangeFile = "orange.png"; //orange
+    orangeSquid->init(orangeFile, 2);
 
     Sprite *blueSquid = new Sprite();
-    char const *image1 = "squid2.png"; // blue
-    blueSquid->init(image1,1);
+    char const *blueFile = "blue.png"; // blue
+    blueSquid->init(blueFile,1);
 
     
 
@@ -76,7 +76,7 @@ Sprite *orangeSquid = new Sprite();
     // -----------
     while (!glfwWindowShouldClose(window))
     {
-        std::cout << "frame"<<std::endl << std::endl;
+        ////std::cout << "frame"<<std::endl << std::endl;
         // input
         // -----
         processInput(window);
@@ -89,14 +89,15 @@ Sprite *orangeSquid = new Sprite();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-        std::cout<< " "<< std::endl;
+       /* std::cout<< " "<< std::endl;
         std::cout<< " "<< std::endl;
         std::cout<< " "<< std::endl;
         std::cout<< "sprite 2 render "<< std::endl;
+        */
         orangeSquid->render(0);
-        std::cout<< " "<< std::endl;
+        //std::cout<< " "<< std::endl;
         //std::cout<< "sprite 1 render "<< std::endl;
-        //blueSquid->render(1);
+        blueSquid->render(1);
         
         // todo: move to sprite->render()
         //  done

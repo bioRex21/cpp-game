@@ -9,10 +9,8 @@
 #include "vertexUtils/VertexUtils.h"
 #include <cmath>
 
-unsigned int texture1;
-unsigned int VBO;
-unsigned int VAO; // it will save the GL states config
-unsigned int EBO;
+
+
 // Camera stuff
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -31,6 +29,12 @@ Sprite::~Sprite()
 
 void Sprite::init(char const *image1, int version = 0)
 {
+  if(version == 2) {
+  this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader_v2.frag");
+  } else {
+    this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
+  }
+  ourShader->use();
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
 
@@ -42,6 +46,8 @@ void Sprite::init(char const *image1, int version = 0)
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
   tl->loadFromFile(image1);
+
+std::cout<< "sprite created tex num" << texture1<< std::endl;
 
   glGenBuffers(1, &EBO);
   glGenBuffers(1, &VBO);
@@ -83,13 +89,11 @@ void Sprite::init(char const *image1, int version = 0)
   // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs)
   // when it's not directly necessary.
   glBindVertexArray(0);
-
-if(version == 2) {
-  this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader_v2.frag");
-  } else {
-    this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
-  }
+  glActiveTexture(0);
+  glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+//We want to display orange squid (sprite1 tex num 1)
 
 void Sprite::render(int t)
 {
@@ -98,11 +102,13 @@ void Sprite::render(int t)
   ourShader->use();
   //glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
   // or set it via the texture class
-   ourShader->setInt("texture1", 0);
+  // ourShader->setInt("texture1", 0);
 
    glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
-  std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1<< std::endl;
+  ////std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1<< std::endl;
   glBindTexture(GL_TEXTURE_2D, texture1);
+
+std::cout<< "render shader ID"  << ourShader->ID <<" texture number" << texture1<< std::endl;
 
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -145,7 +151,7 @@ ourShader->use();
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   // }
-   glBindVertexArray(0); // no need to unbind it every time
+  
 }
 
 void Sprite::destroy()
