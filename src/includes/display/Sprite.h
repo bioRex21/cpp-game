@@ -8,6 +8,9 @@
 class Sprite
 {
 public:
+    float x = 0;
+    float y = 0;
+
     unsigned int texture1;
     unsigned int VBO;
     unsigned int VAO; // it will save the GL states config

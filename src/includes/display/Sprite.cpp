@@ -103,6 +103,8 @@ void Sprite::render(int t)
   if (t == 1)
   {
     model = glm::translate(model, glm::vec3(2.0f, 5.0f, -15.0f));
+  } else {
+    model = glm::translate(model, glm::vec3(x , y , 0.0f));
   }
 
   glm::mat4 projection;
@@ -132,6 +134,7 @@ void Sprite::render(int t)
                           // glDrawArrays(GL_TRIANGLES, 0, 3);
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 }
 
 void Sprite::destroy()

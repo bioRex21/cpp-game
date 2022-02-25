@@ -43,6 +43,8 @@ float fov = 45.0f;
 
 */
 
+Sprite *orangeSquid;
+
 int main()
 {
 
@@ -54,7 +56,8 @@ int main()
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
-    Sprite *orangeSquid = new Sprite();
+    //Sprite *orangeSquid = new Sprite();
+    orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
 
@@ -78,7 +81,7 @@ int main()
 
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -131,6 +134,22 @@ void processInput(GLFWwindow *window)
 
 
     */
+
+   float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    float moveSpeed = 2.5f * deltaTime;
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        orangeSquid->y += moveSpeed;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        orangeSquid->y -= moveSpeed;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        orangeSquid->x -= moveSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        orangeSquid->x += moveSpeed;
+
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
