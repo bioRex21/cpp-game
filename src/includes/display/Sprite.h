@@ -10,6 +10,7 @@ class Sprite
 public:
     float x = 0;
     float y = 0;
+    int t = 0;
 
     unsigned int texture1;
     unsigned int VBO;
@@ -20,7 +21,7 @@ public:
     Sprite();
     ~Sprite();
     void init(char const *image1, int version);
-    void render(int t);
+    void render();
     void destroy();
 
 private:

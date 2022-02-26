@@ -87,7 +87,7 @@ void Sprite::init(char const *image1, int version = 0)
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Sprite::render(int t)
+void Sprite::render()
 {
   // be sure to activate the shader
   ourShader->use();

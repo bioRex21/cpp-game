@@ -14,8 +14,7 @@
 #include <vector>
 
 void processInput(GLFWwindow *window);
-
-// std::vector<Sprite> sprites;
+std::vector<Sprite*> sprites;
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -65,6 +64,9 @@ int main()
     char const *blueFile = "blue.png";
     blueSquid->init(blueFile, 1);
 
+    sprites.push_back(orangeSquid);
+    sprites.push_back(blueSquid);
+
     glEnable(GL_DEPTH_TEST);
 
     // disable mouse
@@ -87,9 +89,22 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-
-        orangeSquid->render(0);
-        blueSquid->render(1);
+        /*int count = 0;
+        auto it = sprites.begin();
+        while (it != sprites.end() && count < 2)
+        {
+            count++;
+           it.re
+        }
+        */
+       for (std::size_t i = 0; i < sprites.size(); ++i) {
+       
+        sprites[i]->render();
+       
+    }
+        
+       // orangeSquid->render();
+       // blueSquid->render();
 
         // OUR DRAWING ENDS
 
@@ -141,8 +156,9 @@ void processInput(GLFWwindow *window)
 
     float moveSpeed = 2.5f * deltaTime;
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         orangeSquid->y += moveSpeed;
+    }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
         orangeSquid->y -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
