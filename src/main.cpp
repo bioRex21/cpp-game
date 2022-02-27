@@ -14,6 +14,7 @@
 #include <vector>
 
 void processInput(GLFWwindow *window);
+void destroyBlue();
 std::vector<Sprite*> sprites;
 
 // settings
@@ -26,7 +27,7 @@ glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 */
-
+bool isDestroyed = false;
 float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
@@ -89,22 +90,13 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-        /*int count = 0;
-        auto it = sprites.begin();
-        while (it != sprites.end() && count < 2)
-        {
-            count++;
-           it.re
-        }
-        */
+        
        for (std::size_t i = 0; i < sprites.size(); ++i) {
        
         sprites[i]->render();
        
     }
-        
-       // orangeSquid->render();
-       // blueSquid->render();
+
 
         // OUR DRAWING ENDS
 
@@ -166,6 +158,17 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         orangeSquid->x += moveSpeed;
 
+
+    if (orangeSquid->x >= 1.0 && isDestroyed == false) {
+        isDestroyed = true;
+        destroyBlue();
+    }
+
+}
+
+void destroyBlue() {
+    sprites.erase(sprites.begin()+1);
+    std::cout << "destroyed" << std::endl;
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)

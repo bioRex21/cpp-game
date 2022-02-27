@@ -23,6 +23,8 @@ Sprite::Sprite()
 
 Sprite::~Sprite()
 {
+  destroy();
+  std::cout << "deleted" << std::endl;
 }
 
 void Sprite::init(char const *image1, int version = 0)
