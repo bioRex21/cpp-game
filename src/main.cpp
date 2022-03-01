@@ -4,6 +4,7 @@
 #include "loaders/TextureLoader.h"
 #include "vertexUtils/VertexUtils.h"
 #include "display/Sprite.h"
+#include "display/SpriteGroup.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -15,7 +16,7 @@
 
 void processInput(GLFWwindow *window);
 void destroyBlue();
-std::vector<Sprite*> sprites;
+/// std::vector<Sprite*> sprites;
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -56,17 +57,13 @@ int main()
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
-    //Sprite *orangeSquid = new Sprite();
+    SpriteGroup *spriteGroup = new SpriteGroup();
+    spriteGroup->add("yellow.png", -0.3, 0.3);
+    spriteGroup->add("blue.png", 0.3, 0.3);
+
     orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
-
-    Sprite *blueSquid = new Sprite();
-    char const *blueFile = "blue.png";
-    blueSquid->init(blueFile, 1);
-
-    sprites.push_back(orangeSquid);
-    sprites.push_back(blueSquid);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -90,13 +87,9 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
-        
-       for (std::size_t i = 0; i < sprites.size(); ++i) {
-       
-        sprites[i]->render();
-       
-    }
 
+        spriteGroup->update();
+        orangeSquid->render();
 
         // OUR DRAWING ENDS
 
@@ -120,35 +113,15 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
-    /*
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-    float cameraSpeed = 2.5f * deltaTime;
-
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        w -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-
-
-    */
-
-   float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-
     float moveSpeed = 2.5f * deltaTime;
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
         orangeSquid->y += moveSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -158,17 +131,17 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         orangeSquid->x += moveSpeed;
 
-
-    if (orangeSquid->x >= 1.0 && isDestroyed == false) {
+    if (orangeSquid->x >= 1.0 && isDestroyed == false)
+    {
         isDestroyed = true;
         destroyBlue();
     }
-
 }
 
-void destroyBlue() {
-    sprites.erase(sprites.begin()+1);
-    std::cout << "destroyed" << std::endl;
+void destroyBlue()
+{
+    // sprites.erase(sprites.begin()+1);
+    // std::cout << "destroyed" << std::endl;
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
