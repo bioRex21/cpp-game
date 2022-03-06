@@ -6,7 +6,7 @@ enable_testing()
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 
-set(UTILS "src/includes/MyClass.cpp" "src/includes/MyClass.h" "src/includes/vertexUtils/VertexUtils.cpp" "src/includes/vertexUtils/VertexUtils.h")
+set(UTILS "src/includes/MyClass.cpp" "src/includes/MyClass.h" "src/includes/vertexUtils/VertexUtils.cpp" "src/includes/vertexUtils/VertexUtils.h" "src/includes/vertexUtils/Constants.h")
 set(LOADERS "src/includes/loaders/TextureLoader.cpp" "src/includes/loaders/TextureLoader.h")
 set(DISPLAY "src/includes/display/Sprite.cpp" "src/includes/display/Sprite.h" "src/includes/display/SpriteGroup.cpp" "src/includes/display/SpriteGroup.h")
 set(SHADERS "src/includes/shaders/BasicShader.cpp" "src/includes/shaders/BasicShader.h")

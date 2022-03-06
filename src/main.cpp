@@ -3,8 +3,10 @@
 #include <MyClass.h>
 #include "loaders/TextureLoader.h"
 #include "vertexUtils/VertexUtils.h"
+#include "vertexUtils/Constants.h"
 #include "display/Sprite.h"
 #include "display/SpriteGroup.h"
+
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,10 +19,6 @@
 void processInput(GLFWwindow *window);
 void destroyBlue();
 /// std::vector<Sprite*> sprites;
-
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
 
 /*
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -49,17 +47,18 @@ Sprite *orangeSquid;
 int main()
 {
 
-    VertexUtils *vu = new VertexUtils();
-    vu->convert(200.0, 100.0);
+   // VertexUtils *vu = new VertexUtils();
+   // float *convertedCoords = vu->convert(400.0, 400.0);
+    //std::cout << "converted" << convertedCoords[0] << "," << convertedCoords[1] << std::endl;
 
     MyClass *mc = new MyClass();
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
-    SpriteGroup *spriteGroup = new SpriteGroup();
+    /*SpriteGroup *spriteGroup = new SpriteGroup();
     spriteGroup->add("yellow.png", -0.3, 0.3);
-    spriteGroup->add("blue.png", 0.3, 0.3);
+    spriteGroup->add("blue.png", 0.3, 0.3);*/
 
     orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
@@ -88,7 +87,7 @@ int main()
 
         // OUR DRAWING
 
-        spriteGroup->update();
+        //spriteGroup->update();
         orangeSquid->render();
 
         // OUR DRAWING ENDS
@@ -130,7 +129,7 @@ void processInput(GLFWwindow *window)
         orangeSquid->x -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         orangeSquid->x += moveSpeed;
-
+//std::cout << orangeSquid->x << "," << orangeSquid->y << std::endl;
     if (orangeSquid->x >= 1.0 && isDestroyed == false)
     {
         isDestroyed = true;

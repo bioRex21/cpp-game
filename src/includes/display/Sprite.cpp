@@ -31,14 +31,23 @@ void Sprite::init(char const *image1, int version = 0)
 {
 
   this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");
-
+// TODO: extend image size to use whole sprite area (should be stretched, but looks good)
   ourShader->use();
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
 
-  float verts2[20];
+  VertexUtils *vutils = new VertexUtils();
+
+float verts0[20]; 
+  std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts0);
+
+// probably copy the array pointer into an explicit one (float verts[20])
+  float *verts2 = vutils->getRectangleAtPos(0.0, 0.0, 400, 300);
+  float vertsa[20]; 
+  std::copy(verts2, verts2 + 20, vertsa);
+
   unsigned int indices2[6];
-  std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
+  //std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
   std::copy(VertexUtils::indices, VertexUtils::indices + 6, indices2);
 
   glGenTextures(1, &texture1);
@@ -53,9 +62,15 @@ void Sprite::init(char const *image1, int version = 0)
   //* and then configure vertex attributes(s).
   glBindVertexArray(VAO); // activating to save the following states:
 
+std::cout << "vertsa size" << sizeof(vertsa) << std::endl;
+std::cout << "vertsa " << *vertsa << std::endl;
+
+std::cout << "verts0 size" << sizeof(verts0) << std::endl;
+std::cout << "verts0 " << *verts0 << std::endl;
   // position attribute (vertices)
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(verts2), verts2, GL_STATIC_DRAW);
+
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertsa), vertsa, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices2), indices2, GL_STATIC_DRAW);

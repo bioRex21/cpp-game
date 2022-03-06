@@ -24,7 +24,10 @@ public:
       1, 2, 3  // second triangle
   };
 
-    void convert(float pixelsWidth, float pixelsHeight);
+
+
+    float *convert(float xPixels, float yPixels);
+    float *getRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
 
 private:
 };
