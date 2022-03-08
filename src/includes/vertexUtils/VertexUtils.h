@@ -27,7 +27,8 @@ public:
 
 
     float *convert(float xPixels, float yPixels);
-    float *getRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
+    float *getTextureRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
+    float *getQuadAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
 
 private:
 };

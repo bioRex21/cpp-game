@@ -5,6 +5,7 @@
 #include "vertexUtils/VertexUtils.h"
 #include "vertexUtils/Constants.h"
 #include "display/Sprite.h"
+#include "display/ColorQuad.h"
 #include "display/SpriteGroup.h"
 
 
@@ -64,6 +65,9 @@ int main()
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
 
+    ColorQuad *colorQuad = new ColorQuad();
+    colorQuad->init();
+
     glEnable(GL_DEPTH_TEST);
 
     // disable mouse
@@ -88,7 +92,9 @@ int main()
         // OUR DRAWING
 
         //spriteGroup->update();
+        colorQuad->render();
         orangeSquid->render();
+        
 
         // OUR DRAWING ENDS
 
@@ -129,7 +135,7 @@ void processInput(GLFWwindow *window)
         orangeSquid->x -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         orangeSquid->x += moveSpeed;
-//std::cout << orangeSquid->x << "," << orangeSquid->y << std::endl;
+
     if (orangeSquid->x >= 1.0 && isDestroyed == false)
     {
         isDestroyed = true;

@@ -9,13 +9,7 @@
 #include "vertexUtils/VertexUtils.h"
 #include <cmath>
 
-// Camera stuff
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float fov = 45.0f;
-int ourShaderID;
 
 Sprite::Sprite()
 {
@@ -42,7 +36,7 @@ float verts0[20];
   std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts0);
 
 // probably copy the array pointer into an explicit one (float verts[20])
-  float *verts2 = vutils->getRectangleAtPos(0.0, 0.0, 400, 300);
+  float *verts2 = vutils->getTextureRectangleAtPos(0.0, 0.0, 400, 426);
   float vertsa[20]; 
   std::copy(verts2, verts2 + 20, vertsa);
 
@@ -117,12 +111,9 @@ void Sprite::render()
 
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-  if (t == 1)
-  {
-    model = glm::translate(model, glm::vec3(2.0f, 5.0f, -15.0f));
-  } else {
+
     model = glm::translate(model, glm::vec3(x , y , 0.0f));
-  }
+
 
   glm::mat4 projection;
   projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
