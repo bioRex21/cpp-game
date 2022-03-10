@@ -29,7 +29,9 @@ public:
     float *convert(float xPixels, float yPixels);
     float *getTextureRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getQuadAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
+    float *getQuadAtPosOrtho(float xPixels, float yPixels, float widthPixels, float heightPixels);
 
 private:
+    float z2D = 0.0f;
 };
 #endif

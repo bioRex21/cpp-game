@@ -56,11 +56,7 @@ float verts0[20];
   //* and then configure vertex attributes(s).
   glBindVertexArray(VAO); // activating to save the following states:
 
-std::cout << "vertsa size" << sizeof(vertsa) << std::endl;
-std::cout << "vertsa " << *vertsa << std::endl;
 
-std::cout << "verts0 size" << sizeof(verts0) << std::endl;
-std::cout << "verts0 " << *verts0 << std::endl;
   // position attribute (vertices)
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
