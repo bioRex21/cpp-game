@@ -26,7 +26,7 @@ namespace loaders
     
     std::cout << "will load " << fileName << std::endl;
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    stbi_set_flip_vertically_on_load(false); // tell stb_image.h to flip loaded texture's on the y-axis.
     unsigned char *data = stbi_load(fileName, &width, &height, &nrChannels, 0);
     if (data)
     {
