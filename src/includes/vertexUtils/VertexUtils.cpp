@@ -186,65 +186,26 @@ delete positionD;
 
 float *VertexUtils::getQuadAtPosOrtho(float xPixels, float yPixels, float widthPixels, float heightPixels)
 {
-  /*
-   0px = -1
-   400px = 0
-   800px = 1
-  */
-
-/*
-Counter-clock-wise vertex order?? clockwise...?
-
-    D ------- A
-    |         |
-    |         |
-    |         |
-    C ------- B
-
-  */
- //never eters here?
- std::cout << " " << std::endl;
-std::cout << " " << std::endl;
-std::cout << "Quad will send " << xPixels + widthPixels << "," << yPixels<< std::endl;
-  float *positionA = convert(xPixels + widthPixels, yPixels);
-  float *positionB = convert(xPixels + widthPixels, yPixels + heightPixels);
-  float *positionC = convert(xPixels, yPixels + heightPixels);
-  float *positionD = convert(xPixels, yPixels);
-
-std::cout << "results:" << std::endl;
-
-std::cout << ""<< positionA[0]<< ", " << positionA[1] << std::endl;
-std::cout << ""<< positionB[0]<< ", " << positionB[1] << std::endl;
-std::cout << ""<< positionC[0]<< ", " << positionC[1] << std::endl;
-std::cout << ""<< positionD[0]<< ", " << positionD[1] << std::endl;
-
-std::cout << " " << std::endl;
-std::cout << "results address:" << std::endl;
-
-std::cout << "positionA"<< positionA<< std::endl;
-std::cout << "positionB"<< positionB<< std::endl;
-std::cout << "positionC"<< positionC<< std::endl;
-std::cout << "positionD"<< positionD<< std::endl;
 
   static float verts[12] = {
-      // positions         
       xPixels + widthPixels, yPixels, z2D,  // top right
       xPixels + widthPixels, yPixels + heightPixels, z2D, // bottom right
       xPixels, yPixels + heightPixels, z2D,// bottom left
       xPixels, yPixels, z2D, // top left
   };
-delete positionA;
-delete positionB;
-delete positionC;
-delete positionD;
-/* for testing
-  static float verts2[20] = {
-      // positions          // texture coords
-      0.0f, 1.0, 0.0f, 1.0f, 1.0f,   // top right
-      0.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // bottom right
-      -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom left
-      -1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left
+  return verts;
+}
+
+
+float *VertexUtils::getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels)
+{
+
+
+  static float verts[20] = {
+      xPixels + widthPixels, yPixels,                z2D,  1.0f, 1.0f,   // top right
+      xPixels + widthPixels, yPixels + heightPixels, z2D,  1.0f, 0.0f,  // bottom right
+      xPixels,               yPixels + heightPixels, z2D,  0.0f, 0.0f, // bottom left
+      xPixels,               yPixels,                z2D,  0.0f, 1.0f   // top left
   };
-*/
   return verts;
 }

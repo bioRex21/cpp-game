@@ -31,12 +31,8 @@ void Sprite::init(char const *image1, int version = 0)
   loaders::TextureLoader *tl = new loaders::TextureLoader();
 
   VertexUtils *vutils = new VertexUtils();
-
-float verts0[20]; 
-  std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts0);
-
 // probably copy the array pointer into an explicit one (float verts[20])
-  float *verts2 = vutils->getTextureRectangleAtPos(0.0, 0.0, 400, 426);
+  float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, 400, 426);
   float vertsa[20]; 
   std::copy(verts2, verts2 + 20, vertsa);
 
@@ -112,17 +108,16 @@ void Sprite::render()
 
 
   glm::mat4 projection;
-  projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
-
+  //projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
+  projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f,  0.1f, 100.0f);
   // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(0.012f), glm::vec3(0.5f, 1.0f, 0.0f));
   int modelLoc = glGetUniformLocation(ourShader->ID, "model");
   // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-  const float radius = 10.0f;
-  float camX = sin(glfwGetTime()) * radius;
-  float camZ = cos(glfwGetTime()) * radius;
+  
   glm::mat4 view;
-  view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+  view = glm::translate(view, glm::vec3(0.0f, 175.0f, -2.0f));
+  //view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
   int viewLoc = glGetUniformLocation(ourShader->ID, "view");
   glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));

@@ -33,9 +33,6 @@ void ColorQuad::init()
 
   VertexUtils *vutils = new VertexUtils();
 
-float verts0[20]; 
-  std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts0);
-
 // probably copy the array pointer into an explicit one (float verts[20])
   float *verts2 = vutils->getQuadAtPosOrtho(0.0, 0.0, 400, 426);
   float vertsa[12]; 
@@ -107,9 +104,6 @@ void ColorQuad::render()
   int modelLoc = glGetUniformLocation(ourShader->ID, "model");
   // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-  const float radius = 10.0f;
-  float camX = sin(glfwGetTime()) * radius;
-  float camZ = cos(glfwGetTime()) * radius;
   glm::mat4 view;
   view = glm::mat4(1.0f);
   view = glm::translate(view, glm::vec3(0.0f, 175.0f, -2.0f));

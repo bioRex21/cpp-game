@@ -57,15 +57,15 @@ int main()
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
-    /*SpriteGroup *spriteGroup = new SpriteGroup();
-    spriteGroup->add("yellow.png", -0.3, 0.3);
-    spriteGroup->add("blue.png", 0.3, 0.3);*/
+    SpriteGroup *spriteGroup = new SpriteGroup();
+    spriteGroup->add("yellow.png", 0.0f, 100.0f);
+    spriteGroup->add("blue.png", 200.0f, 300.0f);
 
 
 
-    //orangeSquid = new Sprite();
-    //char const *orangeFile = "orange.png";
-    //orangeSquid->init(orangeFile, 2);
+    orangeSquid = new Sprite();
+    char const *orangeFile = "orange.png";
+    orangeSquid->init(orangeFile, 2);
 
 
     ColorQuad *colorQuad = new ColorQuad();
@@ -94,9 +94,9 @@ int main()
 
         // OUR DRAWING
 
-        //spriteGroup->update();
-        //orangeSquid->render();
-        colorQuad->render();
+        spriteGroup->update();
+        orangeSquid->render();
+        //colorQuad->render();
         
         
 
@@ -123,13 +123,12 @@ int main()
 void processInput(GLFWwindow *window)
 {
 
-    /*
 
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-    float moveSpeed = 2.5f * deltaTime;
+    float moveSpeed = 200.0f * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
@@ -148,7 +147,6 @@ void processInput(GLFWwindow *window)
         destroyBlue();
     }
 
-    */
 }
 
 void destroyBlue()
