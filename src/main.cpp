@@ -6,6 +6,7 @@
 #include "vertexUtils/Constants.h"
 #include "display/Sprite.h"
 #include "display/ColorQuad.h"
+#include "display/ColorTriangle.h"
 #include "display/SpriteGroup.h"
 
 
@@ -68,16 +69,21 @@ int main()
     orangeSquid->init(orangeFile, 2);
 
 
-    ColorQuad *colorQuad = new ColorQuad();
-    colorQuad->init();
+    //ColorQuad *colorQuad = new ColorQuad();
+    //colorQuad->init();
 
-    glEnable(GL_DEPTH_TEST);
+    //ColorTriangle *colorTriangle = new ColorTriangle();
+    //colorTriangle->init();
+
+    //glEnable(GL_DEPTH_TEST); <-- disable this for orthographic
 
     // disable mouse
     // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // render loop
     // -----------
+    glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     while (!glfwWindowShouldClose(window))
     {
         ////std::cout << "frame"<<std::endl << std::endl;
@@ -89,17 +95,13 @@ int main()
         // ------
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // OUR DRAWING
 
+        //colorTriangle->render();
         spriteGroup->update();
         orangeSquid->render();
         //colorQuad->render();
-        
-        
-
         // OUR DRAWING ENDS
 
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
