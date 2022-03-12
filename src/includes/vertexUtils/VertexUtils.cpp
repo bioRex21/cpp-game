@@ -209,3 +209,14 @@ float *VertexUtils::getOrthoTextureRectangle(float xPixels, float yPixels, float
   };
   return verts;
 }
+
+float *VertexUtils::getTrianglePosOrtho()
+{
+
+  static float verts[9] = {
+      405, 101, z2D,  // top right
+      575, 301, z2D, // bottom right
+     311, 301, z2D,// bottom left
+  };
+  return verts;
+}

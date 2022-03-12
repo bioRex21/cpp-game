@@ -24,12 +24,18 @@ public:
       1, 2, 3  // second triangle
   };
 
+  static constexpr unsigned int indicesTri[3] = {
+      0, 1, 3, // first triangle
+  };
+
 
     float *convert(float xPixels, float yPixels);
     float *getTextureRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getQuadAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getQuadAtPosOrtho(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels);
+    float *getTrianglePosOrtho();
+
 
 private:
     float z2D = 0.0f;
