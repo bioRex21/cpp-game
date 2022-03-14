@@ -12,6 +12,7 @@ public:
     float x = 0;
     float y = 0;
     int t = 0;
+    float scale = 1.0f;
 
     unsigned int texture1;
     unsigned int VBO;

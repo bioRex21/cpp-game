@@ -59,7 +59,7 @@ int main()
     GLFWwindow *window = mc->myWindow;
 
     SpriteGroup *spriteGroup = new SpriteGroup();
-    spriteGroup->add("yellow.png", 0.0f, 100.0f);
+    spriteGroup->add("yellow.png", 200.0f, 200.0f);
     spriteGroup->add("blue.png", 200.0f, 300.0f);
 
 

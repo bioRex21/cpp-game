@@ -102,9 +102,17 @@ void Sprite::render()
   glBindTexture(GL_TEXTURE_2D, texture1);
 
   glm::mat4 model = glm::mat4(1.0f);
+  //center
+ model = glm::translate(model, glm::vec3(-420.f / 2.0f , 426.f / 2.0f , 0.0f));
+model = glm::translate(model, glm::vec3(x , y , 0.0f));
+
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    model = glm::translate(model, glm::vec3(x , y , 0.0f));
+    //model = glm::translate(model, glm::vec3(x , y , 0.0f));
+    model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
+    float scaledHeight = 426.0f * scale;
+    float yOffset = 426.0f  - scaledHeight;
+    //model = glm::translate(model, glm::vec3(0 , yOffset , 0.0f));
 
 
   glm::mat4 projection;
