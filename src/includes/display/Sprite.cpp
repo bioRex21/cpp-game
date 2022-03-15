@@ -43,6 +43,7 @@ void Sprite::init(char const *image1, int version = 0)
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
   tl->loadFromFile(image1);
+  this->name = image1;
 
   glGenBuffers(1, &EBO);
   glGenBuffers(1, &VBO);
@@ -102,14 +103,15 @@ void Sprite::render()
   glBindTexture(GL_TEXTURE_2D, texture1);
 
   glm::mat4 model = glm::mat4(1.0f);
-  //center
+  //center, using image size
  model = glm::translate(model, glm::vec3(-420.f / 2.0f , 426.f / 2.0f , 0.0f));
-model = glm::translate(model, glm::vec3(x , y , 0.0f));
+ std::cout << this->name << " translate (or just current pos)" << x << "," << y << std::endl;
+model = glm::translate(model, glm::vec3(x , -y , 0.0f));
 
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
     //model = glm::translate(model, glm::vec3(x , y , 0.0f));
-    model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
+    //model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
     float scaledHeight = 426.0f * scale;
     float yOffset = 426.0f  - scaledHeight;
     //model = glm::translate(model, glm::vec3(0 , yOffset , 0.0f));

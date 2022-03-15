@@ -5,6 +5,7 @@
 
 #include <glm/glm.hpp>
 #include <shaders/BasicShader.h>
+#include <string>
 
 class Sprite
 {
@@ -13,6 +14,8 @@ public:
     float y = 0;
     int t = 0;
     float scale = 1.0f;
+
+    std::string name;
 
     unsigned int texture1;
     unsigned int VBO;

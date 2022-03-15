@@ -59,8 +59,8 @@ int main()
     GLFWwindow *window = mc->myWindow;
 
     SpriteGroup *spriteGroup = new SpriteGroup();
-    spriteGroup->add("yellow.png", 200.0f, 200.0f);
-    spriteGroup->add("blue.png", 200.0f, 300.0f);
+    spriteGroup->add("yellow.png", 0.0f, 0.0f);
+    spriteGroup->add("blue.png", 400.0f, 300.0f);
 
 
 
@@ -134,10 +134,10 @@ void processInput(GLFWwindow *window)
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        orangeSquid->y += moveSpeed;
+        orangeSquid->y -= moveSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        orangeSquid->y -= moveSpeed;
+        orangeSquid->y += moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         orangeSquid->x -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
