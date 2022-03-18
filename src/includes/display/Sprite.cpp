@@ -106,9 +106,13 @@ void Sprite::render()
   //center, using image size
   float imageWidth = 387.0f;
   float imageHeight = 419.0f; //  419/2 = 209.5
+  float scaledHeight = imageHeight * scale;
+    float yOffset = imageHeight - scaledHeight;
+    float scaledWidth = imageWidth * scale;
+    float xOffset = -scaledWidth / 2.0f;
  //model = glm::translate(model, glm::vec3(-imageWidth / 2.0f , imageHeight / 2.0f , 0.0f));
  //std::cout << this->name << " translate (or just current pos)" << x << "," << y << std::endl;
-model = glm::translate(model, glm::vec3(x , -y , 0.0f));
+model = glm::translate(model, glm::vec3(x - (scaledWidth * 0.5) , y + (scaledHeight *0.5f) + yOffset , 0.0f));
 
   model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -116,11 +120,8 @@ model = glm::translate(model, glm::vec3(x , -y , 0.0f));
 
     //resize
     model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
-    float scaledHeight = imageHeight * scale;
-    float yOffset = imageHeight - scaledHeight;
-    float scaledWidth = imageWidth * scale;
-    float xOffset = -scaledWidth / 2.0f;
-model = glm::translate(model, glm::vec3(x , yOffset * (1.0f/scale) , 0.0f));
+    
+//model = glm::translate(model, glm::vec3(x , yOffset * (1.0f/scale) , 0.0f));
     //center
     //model = glm::translate(model, glm::vec3(-x , yOffset , 0.0f));
     //scale user input

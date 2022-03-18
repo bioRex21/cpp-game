@@ -135,10 +135,10 @@ void processInput(GLFWwindow *window)
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        orangeSquid->y -= moveSpeed;
+        orangeSquid->y += moveSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        orangeSquid->y += moveSpeed;
+        orangeSquid->y -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         orangeSquid->x -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
