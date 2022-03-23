@@ -103,17 +103,8 @@ void Sprite::render()
   glBindTexture(GL_TEXTURE_2D, texture1);
   
   glm::mat4 model = glm::mat4(1.0f);
-  //center, using image size
   float imageWidth = 387.0f;
-  float imageHeight = 419.0f; //  419/2 = 209.5
-  float scaledHeight = imageHeight * scale;
-    float yOffset = imageHeight - scaledHeight;
-    float scaledWidth = imageWidth * scale;
-    float xOffset = -scaledWidth / 2.0f;
- //model = glm::translate(model, glm::vec3(-imageWidth / 2.0f , imageHeight / 2.0f , 0.0f));
- //std::cout << this->name << " translate (or just current pos)" << x << "," << y << std::endl;
- 
-//model = glm::translate(model, glm::vec3(x - (scaledWidth * 0.5) , y + (scaledHeight *0.5f) + yOffset , 0.0f));
+  float imageHeight = 419.0f;
 /*
 https://gamedev.stackexchange.com/questions/61473/combining-rotation-scaling-around-a-pivot-with-translation-into-a-matrix
 mat4 result = glm::translate(-pivot) *
@@ -124,29 +115,14 @@ mat4 result = glm::translate(-pivot) *
 
 */
 
-float pivotX = (imageWidth *0.5f) + x; //400.0f;//imageWidth *0.5f;
-float pivotY = (imageHeight *0.5f) + y; //300.0f;//imageHeight *0.5f;
+float pivotX = (imageWidth *0.5f) + x;
+float pivotY = (imageHeight *0.5f) + y;
 
 model = glm::translate(model, glm::vec3( pivotX, pivotY, 0.0f));
+model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
 model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 model = glm::translate(model, glm::vec3( -pivotX, -pivotY, 0.0f));
-//model = glm::translate(model, glm::vec3( imageWidth *0.5f , -imageHeight *0.5f, 0.0f));
-//model = glm::translate(model, glm::vec3( imageWidth *0.5f , 0.0f , 0.0f));
-  
 model = glm::translate(model, glm::vec3(x , y , 0.0f));
-   // model = glm::translate(model, glm::vec3(x , y , 0.0f));
-
-    //resize
-   // model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
-    
-//model = glm::translate(model, glm::vec3(x , yOffset * (1.0f/scale) , 0.0f));
-    //center
-    //model = glm::translate(model, glm::vec3(-x , yOffset , 0.0f));
-    //scale user input
-    //model = glm::translate(model, glm::vec3(x * scale , -y * scale , 0.0f));
-
-    
-std::cout << "xy" << x << "," << y << " scale " << scale << " rotation " << rotation << std::endl;
 
   glm::mat4 projection;
   //projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -155,7 +131,6 @@ std::cout << "xy" << x << "," << y << " scale " << scale << " rotation " << rota
   int modelLoc = glGetUniformLocation(ourShader->ID, "model");
   // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-  
   glm::mat4 view;
   view = glm::translate(view, glm::vec3(0.0f, 175.0f, -2.0f));
   //view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
