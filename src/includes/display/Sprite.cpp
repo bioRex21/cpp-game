@@ -42,7 +42,9 @@ void Sprite::init(char const *image1, int version = 0)
 
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
-  tl->loadFromFile(image1);
+  int *size = tl->loadFromFile(image1);
+  width = size[0];
+  heigth = size[1];
   this->name = image1;
 
   glGenBuffers(1, &EBO);
@@ -103,26 +105,14 @@ void Sprite::render()
   glBindTexture(GL_TEXTURE_2D, texture1);
   
   glm::mat4 model = glm::mat4(1.0f);
-  float imageWidth = 387.0f;
-  float imageHeight = 419.0f;
-/*
-https://gamedev.stackexchange.com/questions/61473/combining-rotation-scaling-around-a-pivot-with-translation-into-a-matrix
-mat4 result = glm::translate(-pivot) *
-              glm::scale(..) *
-              glm::rotate(..) *
-              glm::translate(pivot) *
-              glm::translate(..);
+  float pivotX = (width *0.5f) + x;
+  float pivotY = (heigth *0.5f) + y;
 
-*/
-
-float pivotX = (imageWidth *0.5f) + x;
-float pivotY = (imageHeight *0.5f) + y;
-
-model = glm::translate(model, glm::vec3( pivotX, pivotY, 0.0f));
-model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
-model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-model = glm::translate(model, glm::vec3( -pivotX, -pivotY, 0.0f));
-model = glm::translate(model, glm::vec3(x , y , 0.0f));
+  model = glm::translate(model, glm::vec3( pivotX, pivotY, 0.0f));
+  model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
+  model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+  model = glm::translate(model, glm::vec3( -pivotX, -pivotY, 0.0f));
+  model = glm::translate(model, glm::vec3(x , y , 0.0f));
 
   glm::mat4 projection;
   //projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);

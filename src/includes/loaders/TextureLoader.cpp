@@ -15,15 +15,14 @@ namespace loaders
   }
 
 //TODO: Handle jpg/png
-  void TextureLoader::loadFromFile(char const *fileName)
+  int* TextureLoader::loadFromFile(char const *fileName)
   {
     // set the texture wrapping/filtering options (on the currently bound texture object)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load and generate the texture    
-    
+
     std::cout << "will load " << fileName << std::endl;
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(false); // tell stb_image.h to flip loaded texture's on the y-axis.
@@ -39,6 +38,8 @@ namespace loaders
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
+    static int size[2] = {width, height};
+    return size;
   }
 
 }

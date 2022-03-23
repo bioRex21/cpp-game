@@ -10,8 +10,10 @@
 class Sprite
 {
 public:
-    float x = 0;
-    float y = 0;
+    float x = 0.0f;
+    float y = 0.0f;
+    int width = 0;
+    int heigth = 0;
     int t = 0;
     float scale = 1.0f;
     float rotation = 0.0f;

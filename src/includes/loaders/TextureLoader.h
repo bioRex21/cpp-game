@@ -10,7 +10,7 @@ namespace loaders
         TextureLoader();
         ~TextureLoader();
 
-        void loadFromFile(char const *fileName);
+        int *loadFromFile(char const *fileName);
 
     private:
 
