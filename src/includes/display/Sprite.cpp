@@ -101,7 +101,8 @@ void Sprite::render()
 
   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, texture1);
-
+x=400.0f;
+y=300.0f;
   glm::mat4 model = glm::mat4(1.0f);
   //center, using image size
   float imageWidth = 387.0f;
@@ -112,14 +113,28 @@ void Sprite::render()
     float xOffset = -scaledWidth / 2.0f;
  //model = glm::translate(model, glm::vec3(-imageWidth / 2.0f , imageHeight / 2.0f , 0.0f));
  //std::cout << this->name << " translate (or just current pos)" << x << "," << y << std::endl;
-model = glm::translate(model, glm::vec3(x - (scaledWidth * 0.5) , y + (scaledHeight *0.5f) + yOffset , 0.0f));
+ 
+//model = glm::translate(model, glm::vec3(x - (scaledWidth * 0.5) , y + (scaledHeight *0.5f) + yOffset , 0.0f));
+/*
+https://gamedev.stackexchange.com/questions/61473/combining-rotation-scaling-around-a-pivot-with-translation-into-a-matrix
+mat4 result = glm::translate(-pivot) *
+              glm::scale(..) *
+              glm::rotate(..) *
+              glm::translate(pivot) *
+              glm::translate(..);
 
-  model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+*/
+model = glm::translate(model, glm::vec3( imageWidth *0.5f , imageHeight *0.5f, 0.0f));
+model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+model = glm::translate(model, glm::vec3( -imageWidth *0.5f , -imageHeight *0.5f, 0.0f));
+//model = glm::translate(model, glm::vec3( imageWidth *0.5f , -imageHeight *0.5f, 0.0f));
+//model = glm::translate(model, glm::vec3( imageWidth *0.5f , 0.0f , 0.0f));
+  
 
     //model = glm::translate(model, glm::vec3(x , y , 0.0f));
 
     //resize
-    model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
+   // model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
     
 //model = glm::translate(model, glm::vec3(x , yOffset * (1.0f/scale) , 0.0f));
     //center
@@ -128,7 +143,7 @@ model = glm::translate(model, glm::vec3(x - (scaledWidth * 0.5) , y + (scaledHei
     //model = glm::translate(model, glm::vec3(x * scale , -y * scale , 0.0f));
 
     
-std::cout << "xy" << x << "," << y << " scale " << scale << " offsetY " << yOffset << std::endl;
+std::cout << "xy" << x << "," << y << " scale " << scale << " rotation " << rotation << std::endl;
 
   glm::mat4 projection;
   //projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);

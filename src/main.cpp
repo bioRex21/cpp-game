@@ -132,6 +132,7 @@ void processInput(GLFWwindow *window)
 
     float moveSpeed = 200.0f * deltaTime;
     float scaleSpeed = 1.1f * deltaTime;
+    float rotationSpeed = 50.0f * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
@@ -148,6 +149,11 @@ void processInput(GLFWwindow *window)
         orangeSquid->scale -= scaleSpeed;
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
         orangeSquid->scale += scaleSpeed;
+
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+        orangeSquid->rotation -= rotationSpeed;
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+        orangeSquid->rotation += rotationSpeed;
 
     if (orangeSquid->x >= 1.0 && isDestroyed == false)
     {

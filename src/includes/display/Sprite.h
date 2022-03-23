@@ -14,6 +14,7 @@ public:
     float y = 0;
     int t = 0;
     float scale = 1.0f;
+    float rotation = 0.0f;
 
     std::string name;
 

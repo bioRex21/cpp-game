@@ -21,3 +21,11 @@ https://medium.com/@vivekjha92/setup-opengl-with-vs-code-82852c653c43
 
 
 Make sure to copy shaders and assets to build/ folder, whenever they change
+
+
+Tips:
+Rotate around origin
+```model = glm::translate(model, glm::vec3( imageWidth *0.5f , imageHeight *0.5f, 0.0f));
+model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+model = glm::translate(model, glm::vec3( -imageWidth *0.5f , -imageHeight *0.5f, 0.0f)); ```
+source: https://stackoverflow.com/questions/69424015/glm-rotation-in-ortho-space
