@@ -101,8 +101,7 @@ void Sprite::render()
 
   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, texture1);
-x=400.0f;
-y=300.0f;
+  
   glm::mat4 model = glm::mat4(1.0f);
   //center, using image size
   float imageWidth = 387.0f;
@@ -124,14 +123,18 @@ mat4 result = glm::translate(-pivot) *
               glm::translate(..);
 
 */
-model = glm::translate(model, glm::vec3( imageWidth *0.5f , imageHeight *0.5f, 0.0f));
+
+float pivotX = (imageWidth *0.5f) + x; //400.0f;//imageWidth *0.5f;
+float pivotY = (imageHeight *0.5f) + y; //300.0f;//imageHeight *0.5f;
+
+model = glm::translate(model, glm::vec3( pivotX, pivotY, 0.0f));
 model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-model = glm::translate(model, glm::vec3( -imageWidth *0.5f , -imageHeight *0.5f, 0.0f));
+model = glm::translate(model, glm::vec3( -pivotX, -pivotY, 0.0f));
 //model = glm::translate(model, glm::vec3( imageWidth *0.5f , -imageHeight *0.5f, 0.0f));
 //model = glm::translate(model, glm::vec3( imageWidth *0.5f , 0.0f , 0.0f));
   
-
-    //model = glm::translate(model, glm::vec3(x , y , 0.0f));
+model = glm::translate(model, glm::vec3(x , y , 0.0f));
+   // model = glm::translate(model, glm::vec3(x , y , 0.0f));
 
     //resize
    // model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
