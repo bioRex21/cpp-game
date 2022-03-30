@@ -29,7 +29,7 @@ void SpriteGroup::update()
     if( sprites[i]->scale >= 1.0f) {
       ////sprites[i]->scale = 0.01f;
     }
-    ////sprites[i]->render();
+    sprites[i]->render();
   }
 }
 

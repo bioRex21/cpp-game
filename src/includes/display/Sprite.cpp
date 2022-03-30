@@ -21,6 +21,10 @@ Sprite::~Sprite()
   std::cout << "deleted" << std::endl;
 }
 
+// TODO: bound box logic for collission check
+// TODO: resize(100, 120) or just via scale
+
+
 void Sprite::init(char const *image1, int version = 0)
 {
 
@@ -29,23 +33,21 @@ void Sprite::init(char const *image1, int version = 0)
   ourShader->use();
   std::cout << "Sprite init" << std::endl;
   loaders::TextureLoader *tl = new loaders::TextureLoader();
-
-  VertexUtils *vutils = new VertexUtils();
-// probably copy the array pointer into an explicit one (float verts[20])
-  float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, 400, 426);
-  float vertsa[20]; 
-  std::copy(verts2, verts2 + 20, vertsa);
-
-  unsigned int indices2[6];
-  //std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
-  std::copy(VertexUtils::indices, VertexUtils::indices + 6, indices2);
-
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
   int *size = tl->loadFromFile(image1);
   width = size[0];
   heigth = size[1];
   this->name = image1;
+  VertexUtils *vutils = new VertexUtils();
+// probably copy the array pointer into an explicit one (float verts[20])
+  float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, width, heigth);
+  float vertsa[20]; 
+  std::copy(verts2, verts2 + 20, vertsa);
+
+  unsigned int indices2[6];
+  //std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
+  std::copy(VertexUtils::indices, VertexUtils::indices + 6, indices2);
 
   glGenBuffers(1, &EBO);
   glGenBuffers(1, &VBO);

@@ -48,19 +48,14 @@ Sprite *orangeSquid;
 
 int main()
 {
-
-   // VertexUtils *vu = new VertexUtils();
-   // float *convertedCoords = vu->convert(400.0, 400.0);
-    //std::cout << "converted" << convertedCoords[0] << "," << convertedCoords[1] << std::endl;
-
     MyClass *mc = new MyClass();
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
     SpriteGroup *spriteGroup = new SpriteGroup();
-    //spriteGroup->add("yellow.png", 0.0f, 0.0f);
-    //spriteGroup->add("blue.png", 400.0f, 300.0f);
+    spriteGroup->add("yellow.png", 0.0f, 0.0f);
+    spriteGroup->add("blue.png", 400.0f, 300.0f);
 
 
 
