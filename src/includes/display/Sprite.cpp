@@ -24,6 +24,19 @@ Sprite::~Sprite()
 // TODO: bound box logic for collission check
 // TODO: resize(100, 120) or just via scale
 
+/**
+ * When resizing, coords should be kept the same.
+ * what will change is the box around the center (the object coords origin).
+ * TODO: make y to be inte center, currently x is.
+ * Rotation will not be evaluated.
+**/
+void Sprite::updateGameCoords() {
+  std::cout << "xy:          " <<x<< ","<< y<< std::endl;
+  //float gameX = //x +-   width * (1/scale) - width;
+  //float gameY = -y * (1/scale);
+  //std::cout << "xy updated: " <<gameX<< ","<< gameY<< std::endl;
+}
+
 
 void Sprite::init(char const *image1, int version = 0)
 {
@@ -97,24 +110,29 @@ void Sprite::init(char const *image1, int version = 0)
 
 void Sprite::render()
 {
+  std::cout << "  " << std::endl;
   // be sure to activate the shader
   ourShader->use();
   glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
   //  or set it via the texture class
   //  ourShader->setInt("texture1", 0);
 
+  gl_y = y * -1.0f;
+
   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, texture1);
   
   glm::mat4 model = glm::mat4(1.0f);
-  float pivotX = (width *0.5f) + x;
-  float pivotY = (heigth *0.5f) + y;
+  float pivotX = (width *0.5f) + (x - 200);
+  float pivotY = (heigth *0.5f) + (gl_y + 213);
+
+  updateGameCoords();
 
   model = glm::translate(model, glm::vec3( pivotX, pivotY, 0.0f));
   model = glm::scale(model, glm::vec3(scale , scale , 1.0f));
   model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
   model = glm::translate(model, glm::vec3( -pivotX, -pivotY, 0.0f));
-  model = glm::translate(model, glm::vec3(x , y , 0.0f));
+  model = glm::translate(model, glm::vec3(x - 200 , gl_y + 213 , 0.0f)); 
 
   glm::mat4 projection;
   //projection = glm::perspective(glm::radians(fov), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -143,6 +161,18 @@ void Sprite::render()
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 }
+
+bool Sprite::instersects(Sprite target)
+{
+  bool result = false;
+  if (target.x >= x && target.x <= x + width) {
+    result =  true;
+  }
+
+  return result;
+}
+
+
 
 void Sprite::destroy()
 {

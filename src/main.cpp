@@ -54,14 +54,16 @@ int main()
     GLFWwindow *window = mc->myWindow;
 
     SpriteGroup *spriteGroup = new SpriteGroup();
-    spriteGroup->add("yellow.png", 0.0f, 0.0f);
-    spriteGroup->add("blue.png", 400.0f, 300.0f);
+    //spriteGroup->add("yellow.png", 0.0f, 0.0f);
+    //spriteGroup->add("blue.png", 400.0f, 300.0f);
 
 
 
     orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
+    orangeSquid->x = 200; //400x426
+    orangeSquid->y = 213; //400x426
 
 
     //ColorQuad *colorQuad = new ColorQuad();
@@ -94,7 +96,7 @@ int main()
         // OUR DRAWING
 
         //colorTriangle->render();
-        spriteGroup->update();
+        //spriteGroup->update();
         orangeSquid->render();
         //colorQuad->render();
         // OUR DRAWING ENDS
@@ -129,12 +131,12 @@ void processInput(GLFWwindow *window)
     float scaleSpeed = 1.1f * deltaTime;
     float rotationSpeed = 50.0f * deltaTime;
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)// move up on screen (closer to zero)
     {
-        orangeSquid->y += moveSpeed;
+        orangeSquid->y -= moveSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        orangeSquid->y -= moveSpeed;
+        orangeSquid->y += moveSpeed; // mode down 
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         orangeSquid->x -= moveSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)

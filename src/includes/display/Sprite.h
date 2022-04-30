@@ -11,7 +11,9 @@ class Sprite
 {
 public:
     float x = 0.0f;
-    float y = 0.0f;
+    float y = 0.0f; // common screen y: top = 0
+    float gl_y = 0.0f;// opengl y inverted: downwards = closer to zero
+
     int width = 0;
     int heigth = 0;
     int t = 0;
@@ -31,6 +33,8 @@ public:
     void init(char const *image1, int version);
     void render();
     void destroy();
+    void updateGameCoords();
+    bool instersects(Sprite target);
 
 private:
 // Camera stuff
