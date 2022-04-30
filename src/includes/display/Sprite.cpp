@@ -13,6 +13,7 @@
 
 Sprite::Sprite()
 {
+  
 }
 
 Sprite::~Sprite()
@@ -27,11 +28,12 @@ Sprite::~Sprite()
 /**
  * When resizing, coords should be kept the same.
  * what will change is the box around the center (the object coords origin).
- * TODO: make y to be inte center, currently x is.
  * Rotation will not be evaluated.
 **/
 void Sprite::updateGameCoords() {
-  std::cout << "xy:          " <<x<< ","<< y<< std::endl;
+  //std::cout << "xy:          " <<x<< ","<< y<< std::endl;
+  boundBox->update(x,y, scale);
+  std::cout << "x0y0:          " <<boundBox->x0<< ","<< boundBox->y0<< ". Size: " << boundBox->width << " x "<< boundBox->height << std::endl;
   //float gameX = //x +-   width * (1/scale) - width;
   //float gameY = -y * (1/scale);
   //std::cout << "xy updated: " <<gameX<< ","<< gameY<< std::endl;
@@ -52,6 +54,8 @@ void Sprite::init(char const *image1, int version = 0)
   width = size[0];
   heigth = size[1];
   this->name = image1;
+  boundBox = new BoundBox(x,y,width,heigth);
+  
   VertexUtils *vutils = new VertexUtils();
 // probably copy the array pointer into an explicit one (float verts[20])
   float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, width, heigth);

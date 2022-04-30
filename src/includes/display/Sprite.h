@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <shaders/BasicShader.h>
 #include <string>
-
+#include "geom/BoundBox.h"
 class Sprite
 {
 public:
@@ -16,6 +16,7 @@ public:
 
     int width = 0;
     int heigth = 0;
+    BoundBox *boundBox;
     int t = 0;
     float scale = 1.0f;
     float rotation = 0.0f;

@@ -11,9 +11,10 @@ set(LOADERS "src/includes/loaders/TextureLoader.cpp" "src/includes/loaders/Textu
 set(DISPLAY "src/includes/display/Sprite.cpp" "src/includes/display/Sprite.h" "src/includes/display/SpriteGroup.cpp" "src/includes/display/SpriteGroup.h" "src/includes/display/ColorQuad.cpp" "src/includes/display/ColorQuad.h")
 set(DISPLAY2  "src/includes/display/ColorTriangle.cpp" "src/includes/display/ColorTriangle.h")
 set(SHADERS "src/includes/shaders/BasicShader.cpp" "src/includes/shaders/BasicShader.h")
+set(GEOM "src/includes/geom/BoundBox.cpp" "src/includes/geom/BoundBox.h" "src/includes/geom/Rectangle.cpp" "src/includes/geom/Rectangle.h")
 
 
-add_executable(my_ccp_game src/main.cpp ${UTILS} ${LOADERS} ${DISPLAY} ${DISPLAY2} ${SHADERS} src/includes/glad/glad.c)
+add_executable(my_ccp_game src/main.cpp ${UTILS} ${LOADERS} ${DISPLAY} ${DISPLAY2} ${SHADERS} ${GEOM} src/includes/glad/glad.c)
 target_link_libraries(my_ccp_game OpenGL::GL)
 target_link_libraries(my_ccp_game glfw)
 include_directories (src/includes)
