@@ -15,7 +15,7 @@ public:
     float height = 0.0f;
     float originalWidth = 0.0f;
     float originalHeight = 0.0f;
-    bool intersects(BoundBox rectangle);
+    bool intersects(BoundBox *collider);
     void update(float newX, float newY, float newScale);
     BoundBox(float x, float y, float width, float height);
     ~BoundBox();

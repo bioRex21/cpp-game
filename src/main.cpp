@@ -54,6 +54,7 @@ int main()
     GLFWwindow *window = mc->myWindow;
 
     SpriteGroup *spriteGroup = new SpriteGroup();
+    //TODO: create another sprite and check for collision (interesct)
     //spriteGroup->add("yellow.png", 0.0f, 0.0f);
     //spriteGroup->add("blue.png", 400.0f, 300.0f);
 
