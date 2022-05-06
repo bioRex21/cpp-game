@@ -20,6 +20,7 @@ public:
     int t = 0;
     float scale = 1.0f;
     float rotation = 0.0f;
+    int life = 1;
 
     std::string name;
 
@@ -37,6 +38,8 @@ public:
     void updateGameCoords();
     bool overlaps(Sprite *target);
 
+    void takeHit();
+
 private:
 // Camera stuff
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -44,6 +47,8 @@ glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 float fov = 45.0f;
+
+    void die();
 };
 
 #endif

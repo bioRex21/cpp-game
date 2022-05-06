@@ -12,12 +12,16 @@ public:
     SpriteGroup();
     ~SpriteGroup();
 
-    void add(char const *imageName, float x, float y);
+    void createAndAdd(char const *imageName, float x, float y);
     void update();
     int size();
 
 private:
     std::vector<Sprite*> sprites;
+
+    void add(Sprite *sprite);
+
+    bool collidesWith(Sprite *sprite);
 };
 
 #endif

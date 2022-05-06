@@ -184,3 +184,15 @@ void Sprite::destroy()
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
 }
+
+void Sprite::takeHit() {
+    life--;
+    if(life <= 0) {
+        die();
+    }
+}
+
+void Sprite::die() {
+    //destroy()
+
+}
