@@ -1,48 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <MyClass.h>
-#include "loaders/TextureLoader.h"
-#include "vertexUtils/VertexUtils.h"
-#include "vertexUtils/Constants.h"
 #include "display/Sprite.h"
-#include "display/ColorQuad.h"
-#include "display/ColorTriangle.h"
 #include "display/SpriteGroup.h"
-
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <cmath>
-#include <iostream>
 #include <vector>
 
 void processInput(GLFWwindow *window);
 void destroyBlue();
-/// std::vector<Sprite*> sprites;
-
-/*
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-*/
 bool isDestroyed = false;
 float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
-// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-
-/*
-f
-
-bool firstMouse = true;
-float yaw = -90.0f; float pitch = 0.0f;
-float lastX = 800.0f / 2.0;
-float lastY = 600.0 / 2.0;
-float fov = 45.0f;
-
-*/
 
 Sprite *orangeSquid;
 Sprite *otherSquid;
@@ -76,16 +43,7 @@ int main()
     otherSquid->y = 0; //400x426
     otherSquid->updateGameCoords();
 
-    //ColorQuad *colorQuad = new ColorQuad();
-    //colorQuad->init();
-
-    //ColorTriangle *colorTriangle = new ColorTriangle();
-    //colorTriangle->init();
-
     //glEnable(GL_DEPTH_TEST); <-- disable this for orthographic
-
-    // disable mouse
-    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // render loop
     // -----------
@@ -93,29 +51,16 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     while (!glfwWindowShouldClose(window))
     {
-        ////std::cout << "frame"<<std::endl << std::endl;
-        // input
-        // -----
         processInput(window);
-
-        // render
-        // ------
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // OUR DRAWING
 
-        //colorTriangle->render();
-        //spriteGroup->update();
         orangeSquid->render();
         otherSquid->render();
 
 bool collides = orangeSquid->overlaps(otherSquid);
-    std::cout << "collides? " << collides << std::endl;
-        //orangeSquid->instersects(*otherSquid);
-        //colorQuad->render();
-        // OUR DRAWING ENDS
-
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         //  -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
