@@ -35,7 +35,7 @@ public:
     void render();
     void destroy();
     void updateGameCoords();
-    bool instersects(Sprite target);
+    bool overlaps(Sprite *target);
 
 private:
 // Camera stuff

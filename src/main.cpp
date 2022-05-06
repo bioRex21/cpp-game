@@ -45,6 +45,7 @@ float fov = 45.0f;
 */
 
 Sprite *orangeSquid;
+Sprite *otherSquid;
 
 int main()
 {
@@ -63,9 +64,17 @@ int main()
     orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
-    orangeSquid->x = 200; //400x426
-    orangeSquid->y = 213; //400x426
+    orangeSquid->x = 600; //400x426
+    orangeSquid->y = 313; //400x426
+    orangeSquid->updateGameCoords();
 
+
+    otherSquid = new Sprite();
+    char const *otherFile = "yellow.png";
+    otherSquid->init(otherFile, 2);
+    otherSquid->x = 0; //400x426
+    otherSquid->y = 0; //400x426
+    otherSquid->updateGameCoords();
 
     //ColorQuad *colorQuad = new ColorQuad();
     //colorQuad->init();
@@ -99,6 +108,11 @@ int main()
         //colorTriangle->render();
         //spriteGroup->update();
         orangeSquid->render();
+        otherSquid->render();
+
+bool collides = orangeSquid->overlaps(otherSquid);
+    std::cout << "collides? " << collides << std::endl;
+        //orangeSquid->instersects(*otherSquid);
         //colorQuad->render();
         // OUR DRAWING ENDS
 

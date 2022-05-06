@@ -33,12 +33,14 @@ void BoundBox::update(float newX, float newY, float newScale) {
   this->y0 = newY - (height * 0.5f);
   this->x1 = newX + (width * 0.5f);
   this->y1 = newY + (height * 0.5f);
-
 }
 
-
-//TODO: Test collision
 bool BoundBox :: intersects(BoundBox *collider) {
+
+  bool first = this->x0 <= collider->x1;
+  bool second = this->x1 >= collider->x0;
+  bool third = this->y0 <= collider->y1;
+  bool fourth = this->y1 >= collider->y0;
 
   return (this->x0 <= collider->x1 && this->x1 >= collider->x0) &&
          (this->y0 <= collider->y1 && this->y1 >= collider->y0);

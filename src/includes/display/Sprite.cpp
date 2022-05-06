@@ -21,10 +21,6 @@ Sprite::~Sprite()
   destroy();
   std::cout << "deleted" << std::endl;
 }
-
-// TODO: bound box logic for collission check
-// TODO: resize(100, 120) or just via scale
-
 /**
  * When resizing, coords should be kept the same.
  * what will change is the box around the center (the object coords origin).
@@ -33,7 +29,7 @@ Sprite::~Sprite()
 void Sprite::updateGameCoords() {
   //std::cout << "xy:          " <<x<< ","<< y<< std::endl;
   boundBox->update(x,y, scale);
-  std::cout << "x0y0:          " <<boundBox->x0<< ","<< boundBox->y0<< ". Size: " << boundBox->width << " x "<< boundBox->height << std::endl;
+  //std::cout << "x0y0:          " <<boundBox->x0<< ","<< boundBox->y0<< ". Size: " << boundBox->width << " x "<< boundBox->height << std::endl;
   //float gameX = //x +-   width * (1/scale) - width;
   //float gameY = -y * (1/scale);
   //std::cout << "xy updated: " <<gameX<< ","<< gameY<< std::endl;
@@ -55,7 +51,7 @@ void Sprite::init(char const *image1, int version = 0)
   heigth = size[1];
   this->name = image1;
   boundBox = new BoundBox(x,y,width,heigth);
-  
+  updateGameCoords();
   VertexUtils *vutils = new VertexUtils();
 // probably copy the array pointer into an explicit one (float verts[20])
   float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, width, heigth);
@@ -114,7 +110,6 @@ void Sprite::init(char const *image1, int version = 0)
 
 void Sprite::render()
 {
-  std::cout << "  " << std::endl;
   // be sure to activate the shader
   ourShader->use();
   glUniform1i(glGetUniformLocation(ourShader->ID, "texture1"), 0);
@@ -166,12 +161,18 @@ void Sprite::render()
 
 }
 
-bool Sprite::instersects(Sprite target)
+bool Sprite::overlaps(Sprite *target)
 {
+  
   bool result = false;
+  std::cout << target->name << std::endl;
+  /*
   if (target.x >= x && target.x <= x + width) {
     result =  true;
-  }
+  }*/
+
+  result = boundBox->intersects(target->boundBox);
+  
 
   return result;
 }
