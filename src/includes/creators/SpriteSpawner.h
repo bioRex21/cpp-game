@@ -8,6 +8,10 @@
 
 class SpriteSpawner {
 
+public:
+    SpriteSpawner();
+
+    virtual ~SpriteSpawner();
 };
 
 

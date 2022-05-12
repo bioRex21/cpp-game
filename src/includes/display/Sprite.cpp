@@ -165,7 +165,6 @@ bool Sprite::overlaps(Sprite *target)
 {
   
   bool result = false;
-  std::cout << target->name << std::endl;
   /*
   if (target.x >= x && target.x <= x + width) {
     result =  true;

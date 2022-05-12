@@ -3,7 +3,10 @@
 #include <MyClass.h>
 #include "display/Sprite.h"
 #include "display/SpriteGroup.h"
+#include "timeUtils/WonkyTimer.h"
+#include "containers/GameLevel.h"
 #include <vector>
+#include <iostream>
 
 void processInput(GLFWwindow *window);
 void destroyBlue();
@@ -11,37 +14,40 @@ bool isDestroyed = false;
 float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
-Sprite *orangeSquid;
-Sprite *otherSquid;
+//WonkyTimer *wonkyTimer;
+//Sprite *orangeSquid;
+//Sprite *otherSquid;
+
+GameLevel *currentLevel;
 
 int main()
 {
+
     MyClass *mc = new MyClass();
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 
+    currentLevel = new GameLevel();
+    currentLevel->init();
+    /*
+     *wonkyTimer = new WonkyTimer(500);
     SpriteGroup *spriteGroup = new SpriteGroup();
-    //TODO: create another sprite and check for collision (interesct)
     //spriteGroup->add("yellow.png", 0.0f, 0.0f);
     //spriteGroup->add("blue.png", 400.0f, 300.0f);
-
-
-
     orangeSquid = new Sprite();
     char const *orangeFile = "orange.png";
     orangeSquid->init(orangeFile, 2);
     orangeSquid->x = 600; //400x426
     orangeSquid->y = 313; //400x426
     orangeSquid->updateGameCoords();
-
-
     otherSquid = new Sprite();
     char const *otherFile = "yellow.png";
     otherSquid->init(otherFile, 2);
     otherSquid->x = 0; //400x426
     otherSquid->y = 0; //400x426
     otherSquid->updateGameCoords();
+     */
 
     //glEnable(GL_DEPTH_TEST); <-- disable this for orthographic
 
@@ -56,11 +62,10 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // OUR DRAWING
-
-        orangeSquid->render();
-        otherSquid->render();
-
-bool collides = orangeSquid->overlaps(otherSquid);
+        currentLevel->update();
+        //orangeSquid->render();
+        //otherSquid->render();
+        //bool collides = orangeSquid->overlaps(otherSquid);
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         //  -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
@@ -81,16 +86,27 @@ bool collides = orangeSquid->overlaps(otherSquid);
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
-
-
+    
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
+
+    //wonkyTimer->addDeltaTime(deltaTime);
+
+    //std::cout<<"delta time:"<<deltaTime<<std::endl;
+    /*
+        delta time:0.00 706577
+        delta time:0.00 665689
+        delta time:0.00 713897
+     */
 
     float moveSpeed = 200.0f * deltaTime;
     float scaleSpeed = 1.1f * deltaTime;
     float rotationSpeed = 50.0f * deltaTime;
 
+    currentLevel->processInput(window);
+
+    /*
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)// move up on screen (closer to zero)
     {
         orangeSquid->y -= moveSpeed;
@@ -117,6 +133,7 @@ void processInput(GLFWwindow *window)
         isDestroyed = true;
         destroyBlue();
     }
+    */
 
 }
 

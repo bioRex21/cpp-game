@@ -3,3 +3,9 @@
 //
 
 #include "SpriteSpawner.h"
+
+SpriteSpawner::SpriteSpawner() {}
+
+SpriteSpawner::~SpriteSpawner() {
+
+}

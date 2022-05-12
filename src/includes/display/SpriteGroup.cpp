@@ -40,6 +40,7 @@ void SpriteGroup::update()
   {
     if (sprites[i]->life > 0) {
         sprites[i]->render();
+        //sprites[i]->x+= 10;
     } else {
        // sprites.erase()
         // sprites.erase(sprites.begin()+1);
