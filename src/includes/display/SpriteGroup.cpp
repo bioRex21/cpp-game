@@ -1,5 +1,5 @@
 #include "SpriteGroup.h"
-
+#include "vertexUtils/Constants.h"
 SpriteGroup::SpriteGroup()
 {
 }
@@ -41,15 +41,33 @@ void SpriteGroup::update()
     if (sprites[i]->life > 0) {
         sprites[i]->render();
         sprites[i]->x+= 10;
-    } else {
-       // sprites.erase()
-        // sprites.erase(sprites.begin()+1);
-        // std::cout << "destroyed" << std::endl;
+        advanceSprite(sprites[i]);
+        checkKillConditions(i);
+
     }
+
+    //checkOutOfBounds(sprites[])
   }
+  //TODO: Add condition to destroy when aoutside of bounds Constants::Width , height
+}
+
+void SpriteGroup::killAt(int index){
+    sprites[index]->destroy();
+    sprites.erase(sprites.begin()+index);
 }
 
 int SpriteGroup::size()
 {
   return sprites.size();
+}
+
+void SpriteGroup::checkKillConditions(int index) {
+    Sprite *sprite = sprites[index];
+    if(sprite->x >= (Constants::WIDTH) || sprite->life <= 0) {
+        killAt(index);
+    }
+}
+
+void SpriteGroup::advanceSprite(Sprite *&pSprite) {
+
 }

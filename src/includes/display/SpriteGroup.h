@@ -22,6 +22,11 @@ private:
     void add(Sprite *sprite);
 
     bool collidesWith(Sprite *sprite);
+
+    void checkKillConditions(int index);
+    void killAt(int index);
+
+    void advanceSprite(Sprite *&pSprite);
 };
 
 #endif

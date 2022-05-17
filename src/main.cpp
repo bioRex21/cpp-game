@@ -27,9 +27,14 @@ int main()
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
-
+//TODO:pass vector continng spawnpoints for this level. Also a moving direction for enemies
+    Point *point = new Point(1.0f, 2.0f);
+    Point *point2 = new Point(3.0f, 2.0f);
+    std::vector<Point*> spawnPoints;
+    spawnPoints.push_back(point);
+    spawnPoints.push_back(point2);
     currentLevel = new GameLevel();
-    currentLevel->init();
+    currentLevel->init(spawnPoints);
     /*
      *wonkyTimer = new WonkyTimer(500);
     SpriteGroup *spriteGroup = new SpriteGroup();

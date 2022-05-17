@@ -9,6 +9,7 @@
 #include "GLFW/glfw3.h"
 #include "timeUtils/WonkyTimer.h"
 #include "display/SpriteGroup.h"
+#include "geom/Point.h"
 
 class GameLevel {
 public:
@@ -16,8 +17,7 @@ public:
 
     virtual ~GameLevel();
 
-    void init();
-
+    void init(std::vector<Point *> spawnPoints);
     void update();
     void processInput(GLFWwindow *window);
 private:
@@ -25,6 +25,8 @@ private:
     SpriteGroup *enemyGroup;
     float deltaTime = 0.0f; // Time between current frame and last frame
     float lastFrame = 0.0f; // Time of last frame
+    void onSpawnEnemy();
+
     void onSpawnEnemy();
 };
 

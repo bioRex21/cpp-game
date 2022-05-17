@@ -2,8 +2,16 @@
 // Created by abe on 5/11/22.
 //
 
+#include <iostream>
 #include "GameLevel.h"
+#include "geom/Point.h"
 
+enum direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
 
 
 GameLevel::GameLevel() {
@@ -15,8 +23,10 @@ GameLevel::~GameLevel() {
 
 }
 
-void GameLevel::init(){
-
+void GameLevel::init(std::vector<Point *> spawnPoints){
+    for (std::size_t i = 0; i < spawnPoints.size(); ++i) {
+        std::cout<<"point at "<< i <<std::endl;
+    }
 }
 
 void GameLevel::onSpawnEnemy(){

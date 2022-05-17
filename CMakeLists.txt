@@ -12,7 +12,7 @@ set(DISPLAY "src/includes/display/Sprite.cpp" "src/includes/display/Sprite.h" "s
 set(DISPLAY2  "src/includes/display/ColorTriangle.cpp" "src/includes/display/ColorTriangle.h")
 set(SHADERS "src/includes/shaders/BasicShader.cpp" "src/includes/shaders/BasicShader.h")
 set(GAME "src/includes/creators/SpriteSpawner.cpp" "src/includes/creators/SpriteSpawner.h")
-set(GEOM "src/includes/geom/BoundBox.cpp" "src/includes/geom/BoundBox.h" "src/includes/geom/Rectangle.cpp" "src/includes/geom/Rectangle.h" src/includes/containers/GameLevel.cpp src/includes/containers/GameLevel.h)
+set(GEOM "src/includes/geom/BoundBox.cpp" "src/includes/geom/BoundBox.h" "src/includes/geom/Rectangle.cpp" "src/includes/geom/Rectangle.h" src/includes/containers/GameLevel.cpp src/includes/containers/GameLevel.h src/includes/geom/Point.cpp src/includes/geom/Point.h)
 
 
 add_executable(my_ccp_game src/main.cpp ${UTILS} ${LOADERS} ${DISPLAY} ${DISPLAY2} ${SHADERS} ${GEOM} ${GAME} src/includes/glad/glad.c)

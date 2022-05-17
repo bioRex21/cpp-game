@@ -19,7 +19,7 @@ void WonkyTimer::addDeltaTime(float deltaTime) {
         timeAccumulator = 0.0f;
     }
     //std::cout<<" "<<std::endl;
-    std::cout<<"time " << timeAccumulator<<std::endl;
+    //std::cout<<"time " << timeAccumulator<<std::endl;
     //std::cout<<"seconds " << seconds <<std::endl;
 }
 

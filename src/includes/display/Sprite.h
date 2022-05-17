@@ -23,6 +23,7 @@ public:
     int life = 1;
 
     std::string name;
+    std::string direction = "none";
 
     unsigned int texture1;
     unsigned int VBO;

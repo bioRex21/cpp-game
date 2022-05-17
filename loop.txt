@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+   int main()
+   {
+    cout<<"life is lonly"<<endl;
+    vector<float> sprites;
+    sprites.push_back(20.0);
+    sprites.push_back(21.0);
+    sprites.push_back(22.0);
+    sprites.push_back(23.0);
+    sprites.push_back(24.0);
+    sprites.push_back(25.0);
+    for (size_t i = 0; i < sprites.size(); ++i) {
+       cout<<"looping"<< sprites[i]<<endl;
+        if (i == 2) {
+           cout<<"will delete "<<sprites[i]<<" at "<<i<<endl;
+            sprites.erase(sprites.begin()+i);
+        }
+    }
+    cout<<" --- updated to :"<<endl;
+    for (size_t i = 0; i < sprites.size(); ++i) {
+       cout<<"looping"<< sprites[i]<<endl;
+
+    }
+    return 0;
+    }
