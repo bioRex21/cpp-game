@@ -35,7 +35,11 @@ void Sprite::updateGameCoords() {
 }
 
 
-void Sprite::init(char const *image1, int version = 0)
+/**
+ * filename with extension
+ * @param image1
+ */
+void Sprite::init(char const *image1)
 {
 
   this->ourShader = new BasicShader("basic_sprite_shader.vert", "basic_sprite_shader.frag");

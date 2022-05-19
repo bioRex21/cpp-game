@@ -27,10 +27,9 @@ void SpriteGroup::add(Sprite *sprite) {
 void SpriteGroup::createAndAdd(char const *imageName, float x, float y)
 {
   Sprite *newSprite = new Sprite();
-  newSprite->init(imageName, 2);
+  newSprite->init(imageName);
   newSprite->x = x;
   newSprite->y = y;
-  ///newSprite->scale = 0.01;
   sprites.push_back(newSprite);
 }
 
@@ -40,9 +39,9 @@ void SpriteGroup::update()
   {
     if (sprites[i]->life > 0) {
         sprites[i]->render();
-        sprites[i]->x+= 10;
+        //sprites[i]->x+= 10;
         advanceSprite(sprites[i]);
-        checkKillConditions(i);
+       // checkKillConditions(i);
 
     }
 
@@ -68,6 +67,18 @@ void SpriteGroup::checkKillConditions(int index) {
     }
 }
 
-void SpriteGroup::advanceSprite(Sprite *&pSprite) {
+void SpriteGroup::advanceSprite(Sprite *sprite) {
+       if (sprite->direction == "right") {
+        sprite->x+= 10;
+       } else if (sprite->direction == "left") {
+        sprite->x-= 10;
+    } else if (sprite->direction == "up") {
+        sprite->y-= 10;
+    } else if (sprite->direction == "down") {
+        sprite->y+= 10;
+    } else {
+           sprite->x+= 10;
+           //sprite->y+= 1;
+       }
 
 }

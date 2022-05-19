@@ -5,6 +5,7 @@
 #include <iostream>
 #include "GameLevel.h"
 #include "geom/Point.h"
+#include "timeUtils/NumberUtils.h"
 
 enum direction {
     UP,
@@ -27,10 +28,23 @@ void GameLevel::init(std::vector<Point *> spawnPoints){
     for (std::size_t i = 0; i < spawnPoints.size(); ++i) {
         std::cout<<"point at "<< i <<std::endl;
     }
+
+    this->spawnPoints = spawnPoints;
+
+
 }
 
 void GameLevel::onSpawnEnemy(){
-    enemyGroup->createAndAdd("orange.png", -420, 10);
+    //enemyGroup->createAndAdd("orange.png", -420, 300);
+    //TODO: generate random number to choose spawn point
+    Sprite *enemy = new Sprite();
+    int random = nu->getRandom(0, (int) spawnPoints.size());
+    Point *point = spawnPoints[random];
+    enemy->init("orange.png");
+    enemy->x = point->x;
+    enemy->y = point->y;
+    enemyGroup->add(enemy);
+
 }
 
 void GameLevel::update(){

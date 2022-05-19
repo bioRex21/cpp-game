@@ -5,6 +5,7 @@
 #include "display/SpriteGroup.h"
 #include "timeUtils/WonkyTimer.h"
 #include "containers/GameLevel.h"
+#include "timeUtils/NumberUtils.h"
 #include <vector>
 #include <iostream>
 
@@ -23,16 +24,23 @@ GameLevel *currentLevel;
 int main()
 {
 
+    NumberUtils *nu = new NumberUtils();
+    int r = nu->getRandom(0, 20);
+    std::cout<<"random "<<r<<std::endl;
     MyClass *mc = new MyClass();
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
 //TODO:pass vector continng spawnpoints for this level. Also a moving direction for enemies
-    Point *point = new Point(1.0f, 2.0f);
-    Point *point2 = new Point(3.0f, 2.0f);
+    Point *point = new Point(0.0f, 44.0f);
+    Point *point2 = new Point(0.0f, 171.0f);
+    Point *point3 = new Point(0.0f, 296.0f);
+    Point *point4 = new Point(0.0f, 435.0f);
     std::vector<Point*> spawnPoints;
     spawnPoints.push_back(point);
     spawnPoints.push_back(point2);
+    spawnPoints.push_back(point3);
+    spawnPoints.push_back(point4);
     currentLevel = new GameLevel();
     currentLevel->init(spawnPoints);
     /*

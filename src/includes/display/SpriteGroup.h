@@ -16,17 +16,17 @@ public:
     void update();
     int size();
 
+    void add(Sprite *sprite);
+
 private:
     std::vector<Sprite*> sprites;
-
-    void add(Sprite *sprite);
 
     bool collidesWith(Sprite *sprite);
 
     void checkKillConditions(int index);
     void killAt(int index);
 
-    void advanceSprite(Sprite *&pSprite);
+    void advanceSprite(Sprite *sprite);
 };
 
 #endif

@@ -6,7 +6,7 @@ enable_testing()
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 
-set(UTILS "src/includes/MyClass.cpp" "src/includes/MyClass.h" "src/includes/vertexUtils/VertexUtils.cpp" "src/includes/vertexUtils/VertexUtils.h" "src/includes/vertexUtils/Constants.h" src/includes/timeUtils/WonkyTimer.cpp src/includes/timeUtils/WonkyTimer.h)
+set(UTILS "src/includes/MyClass.cpp" "src/includes/MyClass.h" "src/includes/vertexUtils/VertexUtils.cpp" "src/includes/vertexUtils/VertexUtils.h" "src/includes/vertexUtils/Constants.h" src/includes/timeUtils/WonkyTimer.cpp src/includes/timeUtils/WonkyTimer.h src/includes/timeUtils/NumberUtils.cpp src/includes/timeUtils/NumberUtils.h)
 set(LOADERS "src/includes/loaders/TextureLoader.cpp" "src/includes/loaders/TextureLoader.h")
 set(DISPLAY "src/includes/display/Sprite.cpp" "src/includes/display/Sprite.h" "src/includes/display/SpriteGroup.cpp" "src/includes/display/SpriteGroup.h" "src/includes/display/ColorQuad.cpp" "src/includes/display/ColorQuad.h")
 set(DISPLAY2  "src/includes/display/ColorTriangle.cpp" "src/includes/display/ColorTriangle.h")
