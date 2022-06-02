@@ -6,8 +6,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "vertexUtils/VertexUtils.h"
+#include "geom/Point.h"
 #include <cmath>
-
+#include <vector>
 
 
 Sprite::Sprite()
@@ -49,17 +50,22 @@ void Sprite::init(char const *image1)
   loaders::TextureLoader *tl = new loaders::TextureLoader();
   glGenTextures(1, &texture1);
   glBindTexture(GL_TEXTURE_2D, texture1);
-  int *size = tl->loadFromFile(image1);
-  width = size[0];
-  heigth = size[1];
+  Point *size = tl->loadFromFile(image1);
+  //int *size = tl->loadFromFile(image1);
+  width = size->x;//size[0];
+  heigth = size->y;//size[1];
+  std::cout << "Sprite init wh " <<width<<" "<<heigth<<std::endl;
   this->name = image1;
   boundBox = new BoundBox(x,y,width,heigth);
   updateGameCoords();
   VertexUtils *vutils = new VertexUtils();
 // probably copy the array pointer into an explicit one (float verts[20])
-  float *verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, width, heigth);
-  float vertsa[20]; 
-  std::copy(verts2, verts2 + 20, vertsa);
+  std::vector<float> verts2 = vutils->getOrthoTextureRectangle(0.0, 0.0, width, heigth);
+  float vertsa[20];
+    for (int i = 0; i < verts2.size(); ++i) {
+        vertsa[i] = verts2[i];
+    }
+  ///std::copy(verts2, verts2 + 20, vertsa);
 
   unsigned int indices2[6];
   //std::copy(VertexUtils::centeredImageVertices, VertexUtils::centeredImageVertices + 20, verts2);
@@ -125,6 +131,7 @@ void Sprite::render()
   glBindTexture(GL_TEXTURE_2D, texture1);
   
   glm::mat4 model = glm::mat4(1.0f);
+  //TODO: use texture half width height
   float pivotX = (width *0.5f) + (x - 200);
   float pivotY = (heigth *0.5f) + (gl_y + 213);
 

@@ -1,4 +1,5 @@
 #include "TextureLoader.h"
+#include "geom/Point.h"
 #include <string>
 #include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
@@ -15,7 +16,7 @@ namespace loaders
   }
 
 //TODO: Handle jpg/png
-  int* TextureLoader::loadFromFile(char const *fileName)
+  Point* TextureLoader::loadFromFile(char const *fileName)
   {
     // set the texture wrapping/filtering options (on the currently bound texture object)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -37,8 +38,10 @@ namespace loaders
     {
         std::cout << "Failed to load texture" << std::endl;
     }
+    std::cout<<"texture size "<<width<<" "<<height<<std::endl;
     stbi_image_free(data);
-    static int size[2] = {width, height};
+    //static int size[2] = {width, height};
+    Point *size = new Point(width, height);
     return size;
   }
 

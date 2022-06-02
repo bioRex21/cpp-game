@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <vector>
+
 class VertexUtils
 {
 public:
@@ -33,7 +35,7 @@ public:
     float *getTextureRectangleAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getQuadAtPos(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getQuadAtPosOrtho(float xPixels, float yPixels, float widthPixels, float heightPixels);
-    float *getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels);
+    std::vector<float> getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels);
     float *getTrianglePosOrtho();
 
 

@@ -2,6 +2,8 @@
 #define TEXTURELOADER_H
 #include <string>
 #include <glad/glad.h>
+#include "geom/Point.h"
+
 namespace loaders
 {
     class TextureLoader
@@ -10,7 +12,7 @@ namespace loaders
         TextureLoader();
         ~TextureLoader();
 
-        int *loadFromFile(char const *fileName);
+        Point* loadFromFile(char const *fileName);
 
     private:
 

@@ -2,6 +2,7 @@
 #include "VertexUtils.h"
 #include "vertexUtils/Constants.h"
 #include <iostream>
+#include <vector>
 
 VertexUtils::VertexUtils()
 {
@@ -197,17 +198,17 @@ float *VertexUtils::getQuadAtPosOrtho(float xPixels, float yPixels, float widthP
 }
 
 
-float *VertexUtils::getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels)
+std::vector<float> VertexUtils::getOrthoTextureRectangle(float xPixels, float yPixels, float widthPixels, float heightPixels)
 {
 
-
-  static float verts[20] = {
+    std::vector<float> floatv;
+   floatv = {
       xPixels + widthPixels, yPixels,                z2D,  1.0f, 1.0f,   // top right
       xPixels + widthPixels, yPixels + heightPixels, z2D,  1.0f, 0.0f,  // bottom right
       xPixels,               yPixels + heightPixels, z2D,  0.0f, 0.0f, // bottom left
       xPixels,               yPixels,                z2D,  0.0f, 1.0f   // top left
   };
-  return verts;
+  return floatv;
 }
 
 float *VertexUtils::getTrianglePosOrtho()
