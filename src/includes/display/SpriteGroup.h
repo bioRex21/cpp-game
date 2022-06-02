@@ -15,6 +15,7 @@ public:
     void createAndAdd(char const *imageName, float x, float y);
     void update();
     int size();
+    std::string direction = "right";
 
     void add(Sprite *sprite);
 

@@ -16,7 +16,7 @@ float deltaTime = 0.0f; // Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
 //WonkyTimer *wonkyTimer;
-//Sprite *orangeSquid;
+Sprite *orangeSquid;
 //Sprite *otherSquid;
 
 GameLevel *currentLevel;
@@ -31,11 +31,11 @@ int main()
     mc->init();
     mc->createWindow();
     GLFWwindow *window = mc->myWindow;
-//TODO:pass vector continng spawnpoints for this level. Also a moving direction for enemies
-    Point *point = new Point(0.0f, 44.0f);
-    Point *point2 = new Point(0.0f, 171.0f);
-    Point *point3 = new Point(0.0f, 296.0f);
-    Point *point4 = new Point(0.0f, 435.0f);
+
+    Point *point = new Point(813.0f, 44.0f);
+    Point *point2 = new Point(813.0f, 171.0f);
+    Point *point3 = new Point(813.0f, 296.0f);
+    Point *point4 = new Point(813.0f, 435.0f);
     std::vector<Point*> spawnPoints;
     spawnPoints.push_back(point);
     spawnPoints.push_back(point2);
@@ -43,24 +43,22 @@ int main()
     spawnPoints.push_back(point4);
     currentLevel = new GameLevel();
     currentLevel->init(spawnPoints);
-    /*
-     *wonkyTimer = new WonkyTimer(500);
-    SpriteGroup *spriteGroup = new SpriteGroup();
-    //spriteGroup->add("yellow.png", 0.0f, 0.0f);
-    //spriteGroup->add("blue.png", 400.0f, 300.0f);
+
     orangeSquid = new Sprite();
-    char const *orangeFile = "orange.png";
-    orangeSquid->init(orangeFile, 2);
+    char const *orangeFile = "player.png";
+    orangeSquid->init(orangeFile);
     orangeSquid->x = 600; //400x426
     orangeSquid->y = 313; //400x426
     orangeSquid->updateGameCoords();
-    otherSquid = new Sprite();
+
+    /*
+     otherSquid = new Sprite();
     char const *otherFile = "yellow.png";
     otherSquid->init(otherFile, 2);
     otherSquid->x = 0; //400x426
     otherSquid->y = 0; //400x426
     otherSquid->updateGameCoords();
-     */
+   */
 
     //glEnable(GL_DEPTH_TEST); <-- disable this for orthographic
 
@@ -76,8 +74,7 @@ int main()
 
         // OUR DRAWING
         currentLevel->update();
-        //orangeSquid->render();
-        //otherSquid->render();
+        orangeSquid->render();
         //bool collides = orangeSquid->overlaps(otherSquid);
         //  glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         //  -------------------------------------------------------------------------------
@@ -104,22 +101,13 @@ void processInput(GLFWwindow *window)
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-    //wonkyTimer->addDeltaTime(deltaTime);
-
-    //std::cout<<"delta time:"<<deltaTime<<std::endl;
-    /*
-        delta time:0.00 706577
-        delta time:0.00 665689
-        delta time:0.00 713897
-     */
-
-    float moveSpeed = 200.0f * deltaTime;
+    float moveSpeed = 650.0f * deltaTime;
     float scaleSpeed = 1.1f * deltaTime;
     float rotationSpeed = 50.0f * deltaTime;
 
     currentLevel->processInput(window);
 
-    /*
+
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)// move up on screen (closer to zero)
     {
         orangeSquid->y -= moveSpeed;
@@ -141,21 +129,10 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
         orangeSquid->rotation += rotationSpeed;
 
-    if (orangeSquid->x >= 1.0 && isDestroyed == false)
-    {
-        isDestroyed = true;
-        destroyBlue();
-    }
-    */
+
+
 
 }
-
-void destroyBlue()
-{
-    // sprites.erase(sprites.begin()+1);
-    // std::cout << "destroyed" << std::endl;
-}
-
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
     /*

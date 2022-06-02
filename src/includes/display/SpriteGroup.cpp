@@ -21,6 +21,7 @@ bool SpriteGroup::collidesWith(Sprite *sprite) {
 }
 
 void SpriteGroup::add(Sprite *sprite) {
+    sprite->direction = direction;
     sprites.push_back(sprite);
 }
 
@@ -62,7 +63,15 @@ int SpriteGroup::size()
 
 void SpriteGroup::checkKillConditions(int index) {
     Sprite *sprite = sprites[index];
-    if(sprite->x >= (Constants::WIDTH) || sprite->life <= 0) {
+    bool killIt = false;
+    if(sprite->direction == "right" && sprite->x >= (Constants::WIDTH) || sprite->life <= 0) {
+        killIt = true;
+    }
+    if(sprite->direction == "left" && sprite->x <= (sprite->width * -1.0f)) {
+        killIt = true;
+    }
+
+    if (killIt) {
         killAt(index);
     }
 }

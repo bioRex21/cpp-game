@@ -18,6 +18,7 @@ enum direction {
 GameLevel::GameLevel() {
     timer = new WonkyTimer(500);
     enemyGroup = new SpriteGroup();
+    enemyGroup->direction = "left";
 }
 
 GameLevel::~GameLevel() {
@@ -28,19 +29,15 @@ void GameLevel::init(std::vector<Point *> spawnPoints){
     for (std::size_t i = 0; i < spawnPoints.size(); ++i) {
         std::cout<<"point at "<< i <<std::endl;
     }
-
     this->spawnPoints = spawnPoints;
-
-
 }
 
 void GameLevel::onSpawnEnemy(){
-    //enemyGroup->createAndAdd("orange.png", -420, 300);
-    //TODO: generate random number to choose spawn point
     Sprite *enemy = new Sprite();
-    int random = nu->getRandom(0, (int) spawnPoints.size());
+    int max =  (int) spawnPoints.size();
+    int random = nu->getRandom(0, max - 1);
     Point *point = spawnPoints[random];
-    enemy->init("orange.png");
+    enemy->init("ball.png");
     enemy->x = point->x;
     enemy->y = point->y;
     enemyGroup->add(enemy);
